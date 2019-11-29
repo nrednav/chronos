@@ -5,29 +5,21 @@
 </template>
 
 <style lang="less">
-// Default color scheme
-@black: #282c34;
-@white: #abb2bf;
-@light-red: #e06c75;
-@dark-red: #be5046;
-@green: #98c379;
-@light-yellow: #e5c07b;
-@orange: #d19a66;
-@blue: #61afef;
-@magenta: #c678dd;
-@cyan: #56b6c2;
-@gutter-grey: #4b5263;
-@comment-grey: #5c6370;
-@background: white;
+@import "./assets/styles/colors.less";
 
 .dark-theme {
   background: @black;
+  color: @white;
 }
 
 body {
   margin: 0;
   padding: 0;
   background: @background;
+  color: @black;
+
+  height: 100vh;
+  width: 100vw;
 }
 
 #app {
@@ -35,6 +27,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+
+  height: 100%;
+  width: 100%;
 }
 </style>
