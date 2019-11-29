@@ -4,8 +4,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    darkThemeEnabled: false
+  },
+  mutations: {
+    toggleDarkTheme(state) {
+      state.darkThemeEnabled = !state.darkThemeEnabled;
+    }
+  },
   actions: {},
   modules: {}
 });
