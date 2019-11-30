@@ -45,12 +45,13 @@ export default {
   methods: {
     toggleDarkTheme() {
       document.querySelector("body").classList.toggle("dark-theme");
-      this.$store.commit("toggleDarkTheme");
+      localStorage.setItem("darkThemeEnabled", true);
     }
   },
   mounted() {
     this.$nextTick(() => {
-      if (this.$store.state.darkThemeEnabled) {
+      const darkThemeEnabled = localStorage.getItem("darkThemeEnabled");
+      if (darkThemeEnabled) {
         document.querySelector("body").classList.add("dark-theme");
         document.querySelector("#theme-switch input").checked = true;
       }
