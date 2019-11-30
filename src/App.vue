@@ -11,11 +11,6 @@ export default {};
 <style lang="less">
 @import "./assets/styles/colors.less";
 
-.dark-theme {
-  background: @black;
-  color: @white;
-}
-
 *,
 *:before,
 *:after {
@@ -25,8 +20,8 @@ export default {};
 body {
   margin: 0;
   padding: 0;
-  background: @background;
-  color: @black;
+  background: var(--background);
+  color: var(--text-color);
 
   height: 100vh;
   width: 100vw;
