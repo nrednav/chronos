@@ -33,15 +33,14 @@ export default {
   grid-template-columns: 25% 75%;
 
   #panel-list {
-    //border-right: 2px solid fade(@gutter-grey, 20%);
-    background: darken(@background, 10%);
+    background: var(--panel-list-bg);
     position: relative;
+    border-right: 2px solid var(--panel-li-border);
 
     #panel-list-item {
-      border-bottom: 2px solid fade(@gutter-grey, 20%);
-      border-right: 2px solid fade(@gutter-grey, 20%);
+      border-bottom: 2px solid var(--panel-li-border);
       height: 9%;
-      background: @background;
+      background: var(--background);
 
       display: flex;
       justify-content: center;
@@ -59,7 +58,7 @@ export default {
       justify-content: center;
       align-items: center;
 
-      background: darken(@background, 40%);
+      background: black;
       color: white;
       cursor: pointer;
     }

@@ -61,8 +61,6 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/styles/colors.less";
-
 #app-home {
   display: grid;
   grid-template-rows: 15vh 45vh 30vh;
@@ -88,7 +86,7 @@ export default {
       }
 
       input:checked[type="checkbox"] {
-        background: @blue;
+        background: var(--blue);
       }
 
       input[type="checkbox"]:before {
@@ -171,13 +169,13 @@ export default {
     }
 
     #btn-start-app {
-      background: @green;
-      color: darken(@green, 30%);
+      background: var(--green);
+      color: darken(#98c379, 30%);
     }
 
     #btn-view-statistics {
-      background: @yellow;
-      color: darken(@yellow, 30%);
+      background: var(--yellow);
+      color: darken(#e5c07b, 30%);
     }
   }
 }
