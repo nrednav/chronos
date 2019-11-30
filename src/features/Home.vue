@@ -76,12 +76,12 @@ export default {
 
       input[type="checkbox"] {
         position: relative;
-        height: 40px;
-        width: 80px;
+        height: 30px;
+        width: 60px;
         appearance: none;
         background: #c6c6c6;
         outline: none;
-        border-radius: 20px;
+        border-radius: 15px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
         transition: 0.5s;
       }
@@ -93,8 +93,8 @@ export default {
       input[type="checkbox"]:before {
         content: "";
         position: absolute;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         border-radius: 20px;
         top: 0;
         left: 0;
@@ -105,7 +105,7 @@ export default {
       }
 
       input:checked[type="checkbox"]:before {
-        left: 40px;
+        left: 30px;
       }
     }
 
@@ -119,8 +119,8 @@ export default {
       }
 
       img {
-        width: 5vmax;
-        height: 5vmax;
+        width: 40px;
+        height: 40px;
       }
     }
   }
