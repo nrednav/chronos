@@ -16,6 +16,12 @@ export default {};
   color: @white;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
