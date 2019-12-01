@@ -1,8 +1,12 @@
 <template>
   <div id="app-settings">
     <div id="panel-list">
-      <div id="panel-list-item" v-for="(panel, index) in panels" :key="index">
-        {{ panel }}
+      <div
+        id="panel-list-item"
+        v-for="(panel, index) in $options.settings.panels"
+        :key="index"
+      >
+        {{ panel.name }}
       </div>
       <div id="settings-home-button" @click="$router.push('/')">
         Home
@@ -13,17 +17,17 @@
 </template>
 
 <script>
+import appSettings from "@/app-settings.json";
 export default {
+  settings: appSettings,
   data() {
-    return {
-      panels: ["1", "2", "3"]
-    };
+    return {};
   }
 };
 </script>
 
 <style lang="less">
-@import "../assets/styles/colors.less";
+//@import "../assets/styles/colors.less";
 
 #app-settings {
   width: 100%;

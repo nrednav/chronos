@@ -44,18 +44,22 @@
 export default {
   methods: {
     toggleDarkTheme() {
-      document.querySelector("body").classList.toggle("dark-theme");
-      localStorage.setItem("darkThemeEnabled", true);
+      const body = document.querySelector("body");
+      body.classList.toggle("dark-theme");
+      const darkThemeEnabled = body.classList.contains("dark-theme");
+      this.$parent.updateSettings(darkThemeEnabled, "appearance");
     }
   },
   mounted() {
+    /*
     this.$nextTick(() => {
       const darkThemeEnabled = localStorage.getItem("darkThemeEnabled");
-      if (darkThemeEnabled) {
+      if (darkThemeEnabled !== null && darkThemeEnabled) {
         document.querySelector("body").classList.add("dark-theme");
         document.querySelector("#theme-switch input").checked = true;
       }
     });
+		*/
   }
 };
 </script>
