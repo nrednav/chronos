@@ -3,10 +3,10 @@
     <div id="panel-list">
       <div
         id="panel-list-item"
-        v-for="(panel, index) in $options.settings.panels"
+        v-for="(value, name, index) in $options.settings.sections"
         :key="index"
       >
-        {{ panel.name }}
+        {{ name }}
       </div>
       <div id="settings-home-button" @click="$router.push('/')">
         Home
@@ -17,7 +17,9 @@
 </template>
 
 <script>
-import appSettings from "@/app-settings.json";
+const fs = require("fs");
+const appSettings = JSON.parse(fs.readFileSync("src/app-settings.json"));
+
 export default {
   settings: appSettings,
   data() {
@@ -27,8 +29,6 @@ export default {
 </script>
 
 <style lang="less">
-//@import "../assets/styles/colors.less";
-
 #app-settings {
   width: 100%;
   height: 100%;

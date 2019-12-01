@@ -5,41 +5,7 @@
 </template>
 
 <script>
-const fs = require("fs");
-
-export default {
-  methods: {
-    updateSettings(status, section) {
-      const settings = JSON.parse(fs.readFileSync("src/app-settings.json"));
-      settings[section].darkThemeEnabled = status;
-      fs.writeFile(
-        "src/app-settings.json",
-        JSON.stringify(settings, null, 2),
-        err => {
-          if (err) throw err;
-          console.log("saved settings");
-        }
-      );
-    }
-  },
-
-  mounted() {
-    this.$nextTick(() => {
-      const settings = JSON.parse(fs.readFileSync("src/app-settings.json"));
-      const darkThemeEnabled = settings["appearance"].darkThemeEnabled;
-      if (darkThemeEnabled !== null && darkThemeEnabled) {
-        document.querySelector("body").classList.add("dark-theme");
-        document.querySelector("#theme-switch input").checked = true;
-      }
-    });
-  },
-
-  updated() {
-    console.log(
-      "HANDLE DARK THEME PERSISTENCE OVER HERE by checking the route first"
-    );
-  }
-};
+export default {};
 </script>
 
 <style lang="less">
