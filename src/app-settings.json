@@ -1,8 +1,10 @@
 {
   "name": "Settings",
-  "general": {},
-  "appearance": {
-    "darkThemeEnabled": true
-  },
-  "statistics": {}
+  "sections": {
+    "General": {},
+    "Appearance": {
+      "darkThemeEnabled": false
+    },
+    "Statistics": {}
+  }
 }

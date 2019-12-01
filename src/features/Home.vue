@@ -1,7 +1,7 @@
 <template>
   <div id="app-home">
     <div id="secondary-buttons-container">
-      <div id="theme-switch">
+      <div id="theme-switch" ref="themeSwitch">
         <input type="checkbox" name="" @click="toggleDarkTheme" />
       </div>
       <div id="btn-settings" @click="$router.push('/settings')">
@@ -41,25 +41,42 @@
 </template>
 
 <script>
+const storage = require("../utils/appStorage.js");
+
+function checkThemeSwitch() {
+  const body = document.querySelector("body");
+  const darkThemeEnabled = body.classList.contains("dark-theme");
+  if (darkThemeEnabled) {
+    document.querySelector("#theme-switch input").checked = true;
+  }
+}
+
+function checkDarkThemeEnabled() {
+  const settings = storage.loadSettings();
+  const darkThemeEnabled = settings.sections["Appearance"].darkThemeEnabled;
+  if (darkThemeEnabled !== null && darkThemeEnabled) {
+    document.querySelector("body").classList.add("dark-theme");
+  }
+}
+
 export default {
   methods: {
     toggleDarkTheme() {
       const body = document.querySelector("body");
       body.classList.toggle("dark-theme");
       const darkThemeEnabled = body.classList.contains("dark-theme");
-      this.$parent.updateSettings(darkThemeEnabled, "appearance");
+      this.updateSettings(darkThemeEnabled, "Appearance");
+    },
+
+    updateSettings(status, section) {
+      const settings = storage.loadSettings();
+      settings.sections[section].darkThemeEnabled = status;
+      storage.saveSettings(settings);
     }
   },
   mounted() {
-    /*
-    this.$nextTick(() => {
-      const darkThemeEnabled = localStorage.getItem("darkThemeEnabled");
-      if (darkThemeEnabled !== null && darkThemeEnabled) {
-        document.querySelector("body").classList.add("dark-theme");
-        document.querySelector("#theme-switch input").checked = true;
-      }
-    });
-		*/
+    setTimeout(checkThemeSwitch, 0);
+    this.$nextTick(checkDarkThemeEnabled);
   }
 };
 </script>
