@@ -3,7 +3,7 @@
   "sections": {
     "General": {},
     "Appearance": {
-      "darkThemeEnabled": false
+      "darkThemeEnabled": true
     },
     "Statistics": {}
   }

@@ -5,6 +5,7 @@
         id="panel-list-item"
         v-for="(value, name, index) in $options.settings.sections"
         :key="index"
+        @click="viewPanel(name, value)"
       >
         {{ name }}
       </div>
@@ -12,7 +13,12 @@
         Home
       </div>
     </div>
-    <div id="panel">2</div>
+    <div id="panel" v-if="panelWasClicked">
+      <div id="panel-heading">
+        {{ activePanel.name }}
+      </div>
+      <hr />
+    </div>
   </div>
 </template>
 
@@ -22,8 +28,31 @@ const appSettings = JSON.parse(fs.readFileSync("src/app-settings.json"));
 
 export default {
   settings: appSettings,
+
   data() {
-    return {};
+    return {
+      activePanel: {},
+      panelWasClicked: false
+    };
+  },
+
+  methods: {
+    viewPanel(name, value) {
+      let item = event.target;
+      this.resetClassList(item.parentElement);
+      item.classList.add("active-li");
+
+      let keys = Object.keys(this.activePanel);
+      if (keys.indexOf(name) === -1) this.activePanel = { name, value };
+      this.panelWasClicked = true;
+    },
+    resetClassList(parent) {
+      let children = Array.from(parent.children);
+      children.forEach(child => {
+        if (child.classList.contains("active-li"))
+          child.classList.remove("active-li");
+      });
+    }
   }
 };
 </script>
@@ -49,6 +78,8 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      cursor: pointer;
     }
 
     #settings-home-button {
@@ -69,6 +100,19 @@ export default {
   }
 
   #panel {
+    #panel-heading {
+      height: 18%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      font-size: 9vh;
+      padding-right: 3vw;
+    }
+  }
+
+  .active-li {
+    border-right: 4px solid var(--blue);
   }
 }
 </style>
