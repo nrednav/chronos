@@ -10,7 +10,7 @@
         {{ name }}
       </div>
       <div id="settings-home-button" @click="$router.push('/')">
-        Home
+        <img src="@/assets/icons/home.svg" alt="" />
       </div>
     </div>
     <div id="panel" v-if="panelWasClicked">
@@ -24,7 +24,7 @@
 
 <script>
 const fs = require("fs");
-const appSettings = JSON.parse(fs.readFileSync("src/app-settings.json"));
+const appSettings = JSON.parse(fs.readFileSync("config/app-settings.json"));
 
 export default {
   settings: appSettings,
@@ -46,6 +46,7 @@ export default {
       if (keys.indexOf(name) === -1) this.activePanel = { name, value };
       this.panelWasClicked = true;
     },
+
     resetClassList(parent) {
       let children = Array.from(parent.children);
       children.forEach(child => {
@@ -53,11 +54,24 @@ export default {
           child.classList.remove("active-li");
       });
     }
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      const panelList = document.querySelector("#panel-list");
+      panelList.children[0].click();
+    });
   }
 };
 </script>
 
 <style lang="less">
+hr {
+  position: absolute;
+  width: 60%;
+  left: 40%;
+}
+
 #app-settings {
   width: 100%;
   height: 100%;
@@ -85,17 +99,28 @@ export default {
     #settings-home-button {
       position: absolute;
       bottom: 4%;
-      left: 12.5%;
+      left: 25%;
       height: 9vh;
-      width: 75%;
+      width: 50%;
+      border-radius: 10px;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      background: black;
+      background: var(--black);
       color: white;
       cursor: pointer;
+
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      img {
+        width: 50%;
+        height: 50%;
+      }
     }
   }
 

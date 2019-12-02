@@ -5,7 +5,21 @@
 </template>
 
 <script>
-export default {};
+const storage = require("./utils/appStorage.js");
+
+function checkDarkThemeEnabled() {
+  const settings = storage.loadSettings();
+  const darkThemeEnabled = settings.sections["Appearance"].darkThemeEnabled;
+  if (darkThemeEnabled !== null && darkThemeEnabled) {
+    document.querySelector("body").classList.add("dark-theme");
+  }
+}
+
+export default {
+  mounted() {
+    this.$nextTick(checkDarkThemeEnabled);
+  }
+};
 </script>
 
 <style lang="less">

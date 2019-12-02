@@ -1,12 +1,12 @@
 const fs = require("fs");
 
 function loadSettings() {
-  return JSON.parse(fs.readFileSync("src/app-settings.json"));
+  return JSON.parse(fs.readFileSync("config/app-settings.json"));
 }
 
 function saveSettings(settings) {
   fs.writeFile(
-    "src/app-settings.json",
+    "config/app-settings.json",
     JSON.stringify(settings, null, 2),
     err => {
       if (err) throw err;
