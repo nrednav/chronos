@@ -51,14 +51,6 @@ function checkThemeSwitch() {
   }
 }
 
-function checkDarkThemeEnabled() {
-  const settings = storage.loadSettings();
-  const darkThemeEnabled = settings.sections["Appearance"].darkThemeEnabled;
-  if (darkThemeEnabled !== null && darkThemeEnabled) {
-    document.querySelector("body").classList.add("dark-theme");
-  }
-}
-
 export default {
   methods: {
     toggleDarkTheme() {
@@ -76,7 +68,6 @@ export default {
   },
   mounted() {
     setTimeout(checkThemeSwitch, 0);
-    this.$nextTick(checkDarkThemeEnabled);
   }
 };
 </script>
