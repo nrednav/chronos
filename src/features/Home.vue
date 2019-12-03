@@ -62,7 +62,10 @@ export default {
 
     updateSettings(status, section) {
       const settings = storage.loadSettings();
-      settings.sections[section].darkThemeEnabled = status;
+      let options = settings.sections[section].options;
+      options.find((option) => {
+        if (option.name === "darkThemeEnabled") option.value = status;
+      });
       storage.saveSettings(settings);
     }
   },

@@ -3,7 +3,14 @@
   "sections": {
     "General": {},
     "Appearance": {
-      "darkThemeEnabled": false
+      "options": [
+        {
+          "name": "darkThemeEnabled",
+          "value": true,
+          "description": "Enable dark theme",
+          "inputType": "checkbox"
+        }
+      ]
     },
     "Statistics": {}
   }
