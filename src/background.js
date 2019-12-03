@@ -60,8 +60,8 @@ app.on("activate", () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
   createWindow();
-  const menu = new Menu();
-  Menu.setApplicationMenu(menu);
+  // const menu = new Menu();
+  // Menu.setApplicationMenu(menu);
 });
 
 // Exit cleanly on request from parent process in development mode.

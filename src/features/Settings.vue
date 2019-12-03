@@ -14,10 +14,29 @@
       </div>
     </div>
     <div id="panel" v-if="panelWasClicked">
+      <div id="settings-changed-dialog" v-if="settingsChanged">
+        Unsaved changes
+        <button @click="saveSettings">Save</button>
+        <button @click="discardChanges">Discard</button>
+      </div>
       <div id="panel-heading">
         {{ activePanel.name }}
       </div>
       <hr />
+      <div id="panel-options">
+        <div class="panel-option" v-for="(option, index) in activePanel.value.options" :key="index">
+          <div class="panel-option-input">
+            <label class="checkmark" for="option-checkbox"
+             v-if="option.inputType === 'checkbox'">
+              <input :checked="option.value" id="option-checkbox" type="checkbox" class="checkmark__input" @click="handleSettings(option)">
+              <div class="checkmark__box"></div>
+            </label>
+          </div>
+          <div class="panel-option-description">
+          {{ option.description }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +51,8 @@ export default {
   data() {
     return {
       activePanel: {},
-      panelWasClicked: false
+      panelWasClicked: false,
+      settingsChanged: false
     };
   },
 
@@ -53,6 +73,20 @@ export default {
         if (child.classList.contains("active-li"))
           child.classList.remove("active-li");
       });
+    },
+
+    handleSettings(option) {
+      option.value = !option.value;
+      this.settingsChanged = true;
+    },
+
+    discardChanges() {
+      console.log('discarding changes');
+      this.settingsChanged = false;
+    },
+
+    saveSettings() {
+      console.log('saving changes');
     }
   },
 
@@ -66,12 +100,6 @@ export default {
 </script>
 
 <style lang="less">
-hr {
-  position: absolute;
-  width: 60%;
-  left: 40%;
-}
-
 #app-settings {
   width: 100%;
   height: 100%;
@@ -94,6 +122,7 @@ hr {
       align-items: center;
 
       cursor: pointer;
+      font-size: 1.25em;
     }
 
     #settings-home-button {
@@ -125,6 +154,8 @@ hr {
   }
 
   #panel {
+    position: relative;
+
     #panel-heading {
       height: 18%;
       display: flex;
@@ -134,6 +165,62 @@ hr {
       font-size: 9vh;
       padding-right: 3vw;
     }
+
+    .panel-option {
+      display: flex;
+
+      .panel-option-input {
+        padding: 3% 5%;
+
+        .checkmark {
+          cursor: pointer;
+        }
+
+        .checkmark__input {
+          display: none;
+
+          &:checked + .checkmark__box {
+            background: var(--blue);
+            border-color: var(--blue);
+
+            &::after {
+              content: '\2714';
+              color: white;
+            }
+          }
+        }
+
+        .checkmark__box {
+          width: 2vw;
+          height:  2vw;
+          border: 2px solid #ccc;
+          border-radius: 3px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+      }
+
+      .panel-option-description {
+        align-self: center;
+        font-size: 1.25em;
+      }
+    }
+  }
+
+  #settings-changed-dialog {
+    position: absolute;
+    bottom : 5%;
+    left: 12.5%;
+
+    width: 75%;
+    height: 9%;
+    border-radius: 5vmax;
+
+    background: var(--orange);
+    color: white;
+    text-align: center;
   }
 
   .active-li {
