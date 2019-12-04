@@ -9,15 +9,27 @@
       >
         {{ name }}
       </div>
-      <div id="settings-home-button" @click="$router.push('/')">
+      <div id="settings-home-button" @click="goHome">
         <img src="@/assets/icons/home.svg" alt="" />
       </div>
     </div>
     <div id="panel" v-if="panelWasClicked">
       <div id="settings-changed-dialog" v-if="settingsChanged">
-        Unsaved changes
-        <button @click="saveSettings">Save</button>
-        <button @click="discardChanges">Discard</button>
+        <div class="unsaved-changes-text">
+          The changes you have made are currently unsaved.
+        </div>
+        <div
+          @click="saveSettings"
+          class="btn-save-changes settings-changed-btn"
+        >
+          Save
+        </div>
+        <div
+          @click="discardChanges"
+          class="btn-discard-changes settings-changed-btn"
+        >
+          Discard
+        </div>
       </div>
       <div id="panel-heading">
         {{ activePanel.name }}
@@ -89,6 +101,11 @@ export default {
       });
     },
 
+    goHome() {
+      this.discardChanges();
+      this.$router.push("/");
+    },
+
     handleSettings(option, index) {
       this.activePanel.value.options[index].value = !option.value;
 
@@ -105,7 +122,7 @@ export default {
       };
 
       this.unsavedChanges.set(option.name, change);
-      this.settingsChanged = true;
+      if (!this.settingsChanged) this.settingsChanged = true;
     },
 
     discardChanges() {
@@ -131,6 +148,7 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
+      checkTheme();
       const panelList = document.querySelector("#panel-list");
       panelList.children[0].click();
     });
@@ -280,9 +298,46 @@ function checkTheme() {
     height: 9%;
     border-radius: 5vmax;
 
-    background: var(--orange);
+    background: var(--panel-list-bg);
     color: white;
     text-align: center;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+
+    .unsaved-changes-text {
+      font-size: 1.25vw;
+      align-self: center;
+      color: var(--text-color);
+    }
+
+    .settings-changed-btn {
+      height: 50%;
+      align-self: center;
+      font-size: 1.25vw;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 0 3%;
+      border-radius: 3vmax;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .btn-discard-changes {
+      background: var(--dark-red);
+      color: pink;
+    }
+
+    .btn-save-changes {
+      background: var(--green);
+      color: darkgreen;
+    }
   }
 
   .active-li {
