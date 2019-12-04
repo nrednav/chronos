@@ -24,16 +24,29 @@
       </div>
       <hr />
       <div id="panel-options">
-        <div class="panel-option" v-for="(option, index) in activePanel.value.options" :key="index">
+        <div
+          class="panel-option"
+          v-for="(option, index) in activePanel.value.options"
+          :key="index"
+        >
           <div class="panel-option-input">
-            <label class="checkmark" for="option-checkbox"
-             v-if="option.inputType === 'checkbox'">
-              <input :checked="option.value" id="option-checkbox" type="checkbox" class="checkmark__input" @click="handleSettings(option)">
+            <label
+              class="checkmark"
+              :for="`option-checkbox-${index}`"
+              v-if="option.inputType === 'checkbox'"
+            >
+              <input
+                :checked="option.value"
+                :id="`option-checkbox-${index}`"
+                type="checkbox"
+                class="checkmark__input"
+                @click="handleSettings(option, index)"
+              />
               <div class="checkmark__box"></div>
             </label>
           </div>
           <div class="panel-option-description">
-          {{ option.description }}
+            {{ option.description }}
           </div>
         </div>
       </div>
@@ -42,8 +55,8 @@
 </template>
 
 <script>
-const fs = require("fs");
-const appSettings = JSON.parse(fs.readFileSync("config/app-settings.json"));
+const storage = require("../utils/appStorage.js");
+const appSettings = storage.loadSettings();
 
 export default {
   settings: appSettings,
@@ -52,7 +65,8 @@ export default {
     return {
       activePanel: {},
       panelWasClicked: false,
-      settingsChanged: false
+      settingsChanged: false,
+      unsavedChanges: new Map()
     };
   },
 
@@ -75,18 +89,43 @@ export default {
       });
     },
 
-    handleSettings(option) {
-      option.value = !option.value;
+    handleSettings(option, index) {
+      this.activePanel.value.options[index].value = !option.value;
+
+      let firstValue = !option.value;
+      if (this.unsavedChanges.get(option.name)) {
+        firstValue = this.unsavedChanges.get(option.name).firstValue;
+      }
+
+      let change = {
+        panelName: this.activePanel.name,
+        optionIndex: index,
+        optionValue: option.value,
+        firstValue
+      };
+
+      this.unsavedChanges.set(option.name, change);
       this.settingsChanged = true;
     },
 
     discardChanges() {
-      console.log('discarding changes');
+      console.log("discarding changes");
+      this.unsavedChanges.forEach(change => {
+        let index = change.optionIndex;
+        let firstValue = change.firstValue;
+        this.$options.settings.sections[change.panelName].options[
+          index
+        ].value = firstValue;
+      });
+      this.unsavedChanges.clear();
       this.settingsChanged = false;
     },
 
     saveSettings() {
-      console.log('saving changes');
+      console.log("saving changes");
+      storage.saveSettings(this.$options.settings);
+      this.unsavedChanges.clear();
+      this.settingsChanged = false;
     }
   },
 
@@ -95,8 +134,22 @@ export default {
       const panelList = document.querySelector("#panel-list");
       panelList.children[0].click();
     });
+  },
+
+  updated() {
+    checkTheme();
   }
 };
+
+function checkTheme() {
+  const options = appSettings.sections["Appearance"].options;
+  const darkThemeEnabled = options.find(option => {
+    if (option.name === "darkThemeEnabled") return option.value;
+  });
+  if (darkThemeEnabled !== null && darkThemeEnabled)
+    document.querySelector("body").classList.add("dark-theme");
+  else document.querySelector("body").classList.remove("dark-theme");
+}
 </script>
 
 <style lang="less">
@@ -137,8 +190,7 @@ export default {
       justify-content: center;
       align-items: center;
 
-      background: var(--black);
-      color: white;
+      background: var(--background);
       cursor: pointer;
 
       transition: all 0.2s ease-in-out;
@@ -155,6 +207,16 @@ export default {
 
   #panel {
     position: relative;
+
+    hr {
+      border: 0;
+      height: 2px;
+      background-image: linear-gradient(
+        to left,
+        var(--white),
+        rgba(0, 0, 0, 0)
+      );
+    }
 
     #panel-heading {
       height: 18%;
@@ -184,7 +246,7 @@ export default {
             border-color: var(--blue);
 
             &::after {
-              content: '\2714';
+              content: "\2714";
               color: white;
             }
           }
@@ -192,7 +254,7 @@ export default {
 
         .checkmark__box {
           width: 2vw;
-          height:  2vw;
+          height: 2vw;
           border: 2px solid #ccc;
           border-radius: 3px;
           display: flex;
@@ -211,7 +273,7 @@ export default {
 
   #settings-changed-dialog {
     position: absolute;
-    bottom : 5%;
+    bottom: 5%;
     left: 12.5%;
 
     width: 75%;
