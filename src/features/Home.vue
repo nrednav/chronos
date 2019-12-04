@@ -1,21 +1,16 @@
 <template>
   <div id="app-home">
-    <div id="secondary-buttons-container">
-      <div id="theme-switch" ref="themeSwitch">
-        <input type="checkbox" name="" @click="toggleDarkTheme" />
-      </div>
-      <div id="btn-settings" @click="$router.push('/settings')">
-        <img
-          src="@/assets/icons/cog-dark.svg"
-          alt="settings icon"
-          v-show="!$store.state.darkThemeEnabled"
-        />
-        <img
-          src="@/assets/icons/cog-light.svg"
-          alt="settings icon"
-          v-show="$store.state.darkThemeEnabled"
-        />
-      </div>
+    <div id="btn-settings" @click="$router.push('/settings')">
+      <img
+        src="@/assets/icons/cog-dark.svg"
+        alt="settings icon"
+        v-show="!$store.state.darkThemeEnabled"
+      />
+      <img
+        src="@/assets/icons/cog-light.svg"
+        alt="settings icon"
+        v-show="$store.state.darkThemeEnabled"
+      />
     </div>
     <div id="hero-container">
       <div class="hero-title">Chronos</div>
@@ -63,7 +58,7 @@ export default {
     updateSettings(status, section) {
       const settings = storage.loadSettings();
       let options = settings.sections[section].options;
-      options.find((option) => {
+      options.find(option => {
         if (option.name === "darkThemeEnabled") option.value = status;
       });
       storage.saveSettings(settings);
@@ -78,64 +73,23 @@ export default {
 <style lang="less">
 #app-home {
   display: grid;
-  grid-template-rows: 15vh 45vh 30vh;
+  grid-template-rows: 15vh 45vh 40vh;
 
-  #secondary-buttons-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  #btn-settings {
+    align-self: center;
+    justify-self: end;
+    padding-right: 3vw;
 
-    #theme-switch {
-      padding-left: 2.5vw;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 
-      input[type="checkbox"] {
-        position: relative;
-        height: 30px;
-        width: 60px;
-        appearance: none;
-        background: #c6c6c6;
-        outline: none;
-        border-radius: 15px;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-        transition: 0.5s;
-      }
-
-      input:checked[type="checkbox"] {
-        background: var(--blue);
-      }
-
-      input[type="checkbox"]:before {
-        content: "";
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        border-radius: 20px;
-        top: 0;
-        left: 0;
-        background: white;
-        transition: 0.5s;
-        transform: scale(1.1);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      }
-
-      input:checked[type="checkbox"]:before {
-        left: 30px;
-      }
+    &:hover {
+      transform: scale(0.9);
     }
 
-    #btn-settings {
-      padding-right: 2.5vw;
-      transition: all 0.2s ease-in-out;
-      cursor: pointer;
-
-      &:hover {
-        transform: scale(0.9);
-      }
-
-      img {
-        width: 40px;
-        height: 40px;
-      }
+    img {
+      width: 40px;
+      height: 40px;
     }
   }
 

@@ -5,7 +5,7 @@
       "options": [
         {
           "name": "option3",
-          "value": true,
+          "value": false,
           "description": "Option 3",
           "inputType": "checkbox"
         }
@@ -16,12 +16,12 @@
         {
           "name": "darkThemeEnabled",
           "value": true,
-          "description": "Enable dark theme",
+          "description": "Dark Theme",
           "inputType": "checkbox"
         },
         {
           "name": "option2",
-          "value": false,
+          "value": true,
           "description": "Option 2",
           "inputType": "checkbox"
         }
