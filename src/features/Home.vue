@@ -4,12 +4,12 @@
       <img
         src="@/assets/icons/cog-dark.svg"
         alt="settings icon"
-        v-show="!$store.state.darkThemeEnabled"
+        v-show="!darkThemeEnabled"
       />
       <img
         src="@/assets/icons/cog-light.svg"
         alt="settings icon"
-        v-show="$store.state.darkThemeEnabled"
+        v-show="darkThemeEnabled"
       />
     </div>
     <div id="hero-container">
@@ -36,36 +36,15 @@
 </template>
 
 <script>
-const storage = require("../utils/appStorage.js");
-
-function checkThemeSwitch() {
-  const body = document.querySelector("body");
-  const darkThemeEnabled = body.classList.contains("dark-theme");
-  if (darkThemeEnabled) {
-    document.querySelector("#theme-switch input").checked = true;
-  }
-}
-
 export default {
-  methods: {
-    toggleDarkTheme() {
-      const body = document.querySelector("body");
-      body.classList.toggle("dark-theme");
-      const darkThemeEnabled = body.classList.contains("dark-theme");
-      this.updateSettings(darkThemeEnabled, "Appearance");
-    },
-
-    updateSettings(status, section) {
-      const settings = storage.loadSettings();
-      let options = settings.sections[section].options;
-      options.find(option => {
-        if (option.name === "darkThemeEnabled") option.value = status;
-      });
-      storage.saveSettings(settings);
-    }
+  data() {
+    return {
+      darkThemeEnabled: false
+    };
   },
   mounted() {
-    setTimeout(checkThemeSwitch, 0);
+    let body = document.querySelector("body");
+    this.darkThemeEnabled = body.classList.contains("dark-theme");
   }
 };
 </script>

@@ -1,9 +1,16 @@
 <template>
   <div class="main">
     <div class="main__header">
-      <div class="button--home"></div>
-      <div class="main__scramble"></div>
-      <div class="main__scramble-button"></div>
+      <div class="button--home" @click="goHome">
+        <img src="@/assets/icons/home-dark.svg" v-show="!darkThemeEnabled" />
+        <img src="@/assets/icons/home.svg" v-show="darkThemeEnabled" />
+      </div>
+      <div class="main__scramble">
+        {{ cubeScramble }}
+      </div>
+      <div class="main__scramble-button" @click="generateScramble">
+        <img src="@/assets/icons/refresh.svg" />
+      </div>
     </div>
     <div class="main__timer">
       <div class="main__timer-clock"></div>
@@ -19,11 +26,30 @@
 </template>
 
 <script>
+import generate from "@/utils/cubeScrambler.js";
+
 export default {
   data() {
     return {
-      timerStarted: false
+      darkThemeEnabled: false,
+      timerStarted: false,
+      cubeScramble: generate()
     };
+  },
+
+  methods: {
+    goHome() {
+      this.$router.push("/");
+    },
+
+    generateScramble() {
+      this.cubeScramble = generate();
+    }
+  },
+
+  mounted() {
+    let body = document.querySelector("body");
+    this.darkThemeEnabled = body.classList.contains("dark-theme");
   }
 };
 </script>
@@ -39,16 +65,22 @@ export default {
   grid-template-rows: 20% 60% 20%;
 
   &__header {
-    background: var(--light-red);
     display: grid;
     grid-template-columns: 16% 68% 16%;
   }
 
   &__scramble {
-    border: 1px solid white;
+    padding: 0 2%;
+    align-self: center;
 
     &-button {
-      border: 1px solid white;
+      align-self: center;
+      cursor: pointer;
+
+      img {
+        width: 5vw;
+        height: 5vw;
+      }
     }
   }
 
@@ -85,7 +117,13 @@ export default {
 }
 
 .button--home {
-  border: 1px solid white;
+  align-self: center;
+  cursor: pointer;
+
+  img {
+    width: 5vw;
+    height: 5vw;
+  }
 }
 
 .button--statistics {

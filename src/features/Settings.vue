@@ -10,14 +10,8 @@
         {{ name }}
       </div>
       <div id="settings-home-button" @click="goHome">
-        <img
-          src="@/assets/icons/home-dark.svg"
-          v-show="!$store.state.darkThemeEnabled"
-        />
-        <img
-          src="@/assets/icons/home.svg"
-          v-show="$store.state.darkThemeEnabled"
-        />
+        <img src="@/assets/icons/home-dark.svg" v-show="!darkThemeEnabled" />
+        <img src="@/assets/icons/home.svg" v-show="darkThemeEnabled" />
       </div>
     </div>
     <div id="panel" v-if="panelWasClicked">
@@ -82,6 +76,7 @@ export default {
 
   data() {
     return {
+      darkThemeEnabled: false,
       activePanel: {},
       panelWasClicked: false,
       settingsChanged: false,
@@ -150,31 +145,31 @@ export default {
       storage.saveSettings(this.$options.settings);
       this.unsavedChanges.clear();
       this.settingsChanged = false;
+    },
+
+    checkTheme() {
+      const options = appSettings.sections["Appearance"].options;
+      this.darkThemeEnabled = options.find(option => {
+        if (option.name === "darkThemeEnabled") return option.value;
+      });
+      if (this.darkThemeEnabled !== null && this.darkThemeEnabled)
+        document.querySelector("body").classList.add("dark-theme");
+      else document.querySelector("body").classList.remove("dark-theme");
     }
   },
 
   mounted() {
     this.$nextTick(() => {
-      checkTheme();
+      this.checkTheme();
       const panelList = document.querySelector("#panel-list");
       panelList.children[0].click();
     });
   },
 
   updated() {
-    checkTheme();
+    this.checkTheme();
   }
 };
-
-function checkTheme() {
-  const options = appSettings.sections["Appearance"].options;
-  const darkThemeEnabled = options.find(option => {
-    if (option.name === "darkThemeEnabled") return option.value;
-  });
-  if (darkThemeEnabled !== null && darkThemeEnabled)
-    document.querySelector("body").classList.add("dark-theme");
-  else document.querySelector("body").classList.remove("dark-theme");
-}
 </script>
 
 <style lang="less">
