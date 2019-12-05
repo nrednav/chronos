@@ -50,21 +50,18 @@ export default {
 </script>
 
 <style lang="less">
+@import "../assets/styles/global.less";
+
 #app-home {
   display: grid;
   grid-template-rows: 15vh 45vh 40vh;
 
   #btn-settings {
+    .scale(0.9);
     align-self: center;
     justify-self: end;
     padding-right: 3vw;
-
-    transition: all 0.2s ease-in-out;
     cursor: pointer;
-
-    &:hover {
-      transform: scale(0.9);
-    }
 
     img {
       width: 40px;
@@ -97,11 +94,11 @@ export default {
     align-items: center;
 
     .primary-button {
+      .scale(1.1);
       width: 33%;
       height: 100%;
       border-radius: 1vmax;
       box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
-      transition: all 0.2s ease-in-out;
       cursor: pointer;
 
       font-size: 3vmax;
@@ -110,10 +107,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-
-      &:hover {
-        transform: scale(1.1);
-      }
     }
 
     #btn-start-app {

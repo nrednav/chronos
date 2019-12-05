@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import generate from "@/utils/cubeScrambler.js";
+import generateScramble from "@/utils/cubeScrambler.js";
 
 export default {
   data() {
     return {
       darkThemeEnabled: false,
       timerStarted: false,
-      cubeScramble: generate()
+      cubeScramble: generateScramble()
     };
   },
 
@@ -43,7 +43,12 @@ export default {
     },
 
     generateScramble() {
-      this.cubeScramble = generate();
+      let refreshImage = document.querySelector(".main__scramble-button img");
+      refreshImage.classList.add("rotato");
+      setTimeout(() => {
+        refreshImage.classList.remove("rotato");
+        this.cubeScramble = generateScramble();
+      }, 500);
     }
   },
 
@@ -56,6 +61,7 @@ export default {
 
 <style lang="less">
 @import "../assets/styles/colors.less";
+@import "../assets/styles/global.less";
 
 .main {
   width: 100%;
@@ -117,6 +123,7 @@ export default {
 }
 
 .button--home {
+  .scale(1.1);
   align-self: center;
   cursor: pointer;
 
@@ -127,5 +134,10 @@ export default {
 }
 
 .button--statistics {
+}
+
+.rotato {
+  transition: all 0.5s ease-in-out;
+  transform: rotate(360deg);
 }
 </style>
