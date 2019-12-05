@@ -173,6 +173,8 @@ export default {
 </script>
 
 <style lang="less">
+@import "../assets/styles/global.less";
+
 #app-settings {
   width: 100%;
   height: 100%;
@@ -199,6 +201,7 @@ export default {
     }
 
     #settings-home-button {
+      .scale(1.1);
       position: absolute;
       bottom: 4%;
       left: 25%;
@@ -212,11 +215,6 @@ export default {
 
       background: var(--background);
       cursor: pointer;
-
-      transition: all 0.2s ease-in-out;
-      &:hover {
-        transform: scale(1.1);
-      }
 
       img {
         width: 50%;
@@ -315,6 +313,7 @@ export default {
     }
 
     .settings-changed-btn {
+      .scale(1.1);
       height: 50%;
       align-self: center;
       font-size: 1.25vw;
@@ -324,11 +323,6 @@ export default {
       padding: 0 3%;
       border-radius: 3vmax;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        transform: scale(1.1);
-      }
     }
 
     .btn-discard-changes {

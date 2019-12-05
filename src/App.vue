@@ -27,6 +27,7 @@ export default {
 
 <style lang="less">
 @import "./assets/styles/colors.less";
+@import "./assets/styles/global.less";
 
 *,
 *:before,
