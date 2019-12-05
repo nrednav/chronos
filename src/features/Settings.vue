@@ -10,7 +10,14 @@
         {{ name }}
       </div>
       <div id="settings-home-button" @click="goHome">
-        <img src="@/assets/icons/home.svg" alt="" />
+        <img
+          src="@/assets/icons/home-dark.svg"
+          v-show="!$store.state.darkThemeEnabled"
+        />
+        <img
+          src="@/assets/icons/home.svg"
+          v-show="$store.state.darkThemeEnabled"
+        />
       </div>
     </div>
     <div id="panel" v-if="panelWasClicked">
@@ -193,7 +200,7 @@ function checkTheme() {
       align-items: center;
 
       cursor: pointer;
-      font-size: 1.25em;
+      font-size: 3vh;
     }
 
     #settings-home-button {

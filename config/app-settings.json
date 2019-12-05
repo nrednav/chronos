@@ -2,14 +2,7 @@
   "name": "Settings",
   "sections": {
     "General": {
-      "options": [
-        {
-          "name": "option3",
-          "value": false,
-          "description": "Option 3",
-          "inputType": "checkbox"
-        }
-      ]
+      "options": []
     },
     "Appearance": {
       "options": [
@@ -17,12 +10,6 @@
           "name": "darkThemeEnabled",
           "value": true,
           "description": "Dark Theme",
-          "inputType": "checkbox"
-        },
-        {
-          "name": "option2",
-          "value": true,
-          "description": "Option 2",
           "inputType": "checkbox"
         }
       ]
