@@ -12,9 +12,24 @@
         <img src="@/assets/icons/refresh.svg" />
       </div>
     </div>
-    <div class="main__timer">
-      <div class="main__timer-clock"></div>
-      <div class="main__timer-control"></div>
+    <div class="main__timer" v-if="timer">
+      <div class="main__timer-clock">00:00:000</div>
+      <div class="main__timer-controls">
+        <div
+          class="button--start-timer"
+          v-show="!timerRunning"
+          @click="startTimer"
+        >
+          START
+        </div>
+        <div
+          class="button--stop-timer"
+          v-show="timerRunning"
+          @click="stopTimer"
+        >
+          STOP
+        </div>
+      </div>
       <div class="main__timer-warmup" v-if="timerStarted"></div>
     </div>
     <div class="main__stats">
@@ -27,13 +42,15 @@
 
 <script>
 import generateScramble from "@/utils/cubeScrambler.js";
+import Stopwatch from "@/utils/stopwatch.js";
 
 export default {
   data() {
     return {
       darkThemeEnabled: false,
-      timerStarted: false,
-      cubeScramble: generateScramble()
+      timerRunning: false,
+      cubeScramble: generateScramble(),
+      timer: null
     };
   },
 
@@ -49,12 +66,24 @@ export default {
         refreshImage.classList.remove("rotato");
         this.cubeScramble = generateScramble();
       }, 500);
+    },
+
+    startTimer() {
+      this.timer.start();
+      this.timerRunning = true;
+    },
+
+    stopTimer() {
+      this.timer.stop();
+      this.timerRunning = false;
+      this.timer.reset();
     }
   },
 
   mounted() {
     let body = document.querySelector("body");
     this.darkThemeEnabled = body.classList.contains("dark-theme");
+    this.timer = new Stopwatch();
   }
 };
 </script>
@@ -91,15 +120,17 @@ export default {
   }
 
   &__timer {
-    background: var(--green);
     display: grid;
     grid-template-rows: 70% 30%;
 
     &-clock {
-      border: 1px solid white;
+      grid-row: 1;
+      font-size: 24vh;
+      display: flex;
     }
 
-    &-control {
+    &-controls {
+      grid-row: 2;
       border: 1px solid white;
     }
 
