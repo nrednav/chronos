@@ -9,7 +9,7 @@ function Stopwatch() {
       time += delta();
     }
     let formattedTime = formatTime(time);
-    document.querySelector(".main__timer-clock").innerText = formattedTime;
+    document.querySelector(".main__timer-clock").textContent = formattedTime;
   }
 
   function delta() {
@@ -26,11 +26,11 @@ function Stopwatch() {
     let seconds = time.getSeconds().toString();
     let milliseconds = time.getMilliseconds().toString();
 
-    if (seconds.length < 2) seconds = "0" + seconds;
     if (minutes.length < 2) minutes = "0" + minutes;
+    if (seconds.length < 2) seconds = "0" + seconds;
     if (milliseconds.length < 3) milliseconds = "0" + milliseconds;
 
-    return `${minutes}:${seconds}:${milliseconds}`;
+    return `${minutes}:${seconds}.${milliseconds.substr(0, 2)}`;
   }
 
   this.start = function() {
