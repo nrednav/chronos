@@ -39,12 +39,22 @@
 export default {
   data() {
     return {
-      darkThemeEnabled: false
+      darkThemeEnabled: null
     };
   },
+  methods: {
+    checkTheme() {
+      let body = document.querySelector("body");
+      this.darkThemeEnabled = body.classList.contains("dark-theme");
+    }
+  },
   mounted() {
-    let body = document.querySelector("body");
-    this.darkThemeEnabled = body.classList.contains("dark-theme");
+    console.log("mounted");
+    this.$nextTick(this.checkTheme);
+  },
+  updated() {
+    console.log("updated");
+    this.checkTheme();
   }
 };
 </script>
@@ -64,8 +74,8 @@ export default {
     cursor: pointer;
 
     img {
-      width: 40px;
-      height: 40px;
+      width: 5vw;
+      height: 5vw;
     }
   }
 

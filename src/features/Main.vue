@@ -13,7 +13,9 @@
       </div>
     </div>
     <div class="main__timer" v-if="timer">
-      <div class="main__timer-clock">00:00:000</div>
+      <div class="main__timer-clock">
+        <!-- <div class="main-clock"></div> -->
+      </div>
       <div class="main__timer-controls">
         <div
           class="button--start-timer"
@@ -47,7 +49,7 @@ import Stopwatch from "@/utils/stopwatch.js";
 export default {
   data() {
     return {
-      darkThemeEnabled: false,
+      darkThemeEnabled: null,
       timerRunning: false,
       cubeScramble: generateScramble(),
       timer: null
@@ -77,13 +79,21 @@ export default {
       this.timer.stop();
       this.timerRunning = false;
       this.timer.reset();
+    },
+
+    checkTheme() {
+      let body = document.querySelector("body");
+      this.darkThemeEnabled = body.classList.contains("dark-theme");
     }
   },
 
   mounted() {
-    let body = document.querySelector("body");
-    this.darkThemeEnabled = body.classList.contains("dark-theme");
     this.timer = new Stopwatch();
+    this.$nextTick(this.checkTheme);
+  },
+
+  updated() {
+    this.checkTheme();
   }
 };
 </script>
@@ -105,6 +115,7 @@ export default {
   }
 
   &__scramble {
+    font-size: 3vh;
     padding: 0 2%;
     align-self: center;
 
@@ -113,8 +124,8 @@ export default {
       cursor: pointer;
 
       img {
-        width: 5vw;
-        height: 5vw;
+        width: 6vh;
+        height: 6vh;
       }
     }
   }
@@ -122,11 +133,23 @@ export default {
   &__timer {
     display: grid;
     grid-template-rows: 70% 30%;
+    //position: relative;
 
     &-clock {
       grid-row: 1;
-      font-size: 24vh;
       display: flex;
+      justify-content: center;
+      align-items: center;
+
+      //.main-clock {
+      // top: 0;
+      // left: 50%;
+      // transform: translateX(-50%);
+      // width: 100%;
+      // position: absolute;
+      font-family: monospace;
+      font-size: 24vh;
+      //}
     }
 
     &-controls {
@@ -159,8 +182,8 @@ export default {
   cursor: pointer;
 
   img {
-    width: 5vw;
-    height: 5vw;
+    width: 6vh;
+    height: 6vh;
   }
 }
 

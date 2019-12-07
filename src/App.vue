@@ -21,7 +21,7 @@ function checkDarkThemeEnabled() {
 export default {
   mounted() {
     this.$nextTick(checkDarkThemeEnabled);
-  }
+  },
 };
 </script>
 
