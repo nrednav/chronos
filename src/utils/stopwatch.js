@@ -57,6 +57,14 @@ function Stopwatch() {
   this.isRunning = function() {
     return counting;
   };
+
+  this.getTime = function() {
+    let formattedTime = formatTime(time);
+    let minutes = formattedTime.substr(0, 2);
+    let seconds = formattedTime.substr(3, 2);
+    let milliseconds = formattedTime.substr(6, 2);
+    return `${minutes}m ${seconds}s ${milliseconds}ms`;
+  };
 }
 
 export default Stopwatch;

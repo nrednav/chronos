@@ -52,6 +52,7 @@
 import generateScramble from "@/utils/cubeScrambler.js";
 import Stopwatch from "@/utils/stopwatch.js";
 const storage = require("@/utils/appStorage.js");
+const stats = storage.load("user_data/stats.json");
 
 export default {
   data() {
@@ -94,6 +95,11 @@ export default {
     stopTimer() {
       this.timer.stop();
       this.timerRunning = false;
+			stats.history.push({
+				date: new Date(),
+				solve_time: this.timer.getTime()
+			});
+			storage.save("user_data/stats.json", stats);
     },
 
     initWarmup() {
@@ -270,7 +276,7 @@ export default {
   .button-general();
   width: 60%;
   height: 40%;
-  font-size: 4vh;
+  font-size: 3vmax;
   justify-self: center;
 
 	background: var(--stats-button);
