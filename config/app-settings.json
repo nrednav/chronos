@@ -2,7 +2,14 @@
   "name": "Settings",
   "sections": {
     "General": {
-      "options": []
+      "options": [
+				{
+					"name": "warmupDuration",
+					"value": 3,
+					"description": "Warmup Duration",
+					"inputType": "normal"
+				}
+			]
     },
     "Appearance": {
       "options": [

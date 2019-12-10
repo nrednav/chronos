@@ -13,26 +13,24 @@
       </div>
     </div>
     <div class="main__timer" v-if="timer">
-      <div class="main__timer-clock">
-        <!-- <div class="main-clock"></div> -->
-      </div>
-      <div class="main__timer-controls">
+      <div class="main__timer-clock" v-show="!warmupInitiated"></div>
+      <div class="main__timer-control" v-show="!warmupInitiated">
         <div
-          class="button--start-timer"
+          class="button-control button--start-timer"
           v-show="!timerRunning"
-          @click="startTimer"
+          @click="initWarmup"
         >
           START
         </div>
         <div
-          class="button--stop-timer"
+          class="button-control button--stop-timer"
           v-show="timerRunning"
           @click="stopTimer"
         >
           STOP
         </div>
       </div>
-      <div class="main__timer-warmup" v-if="timerStarted"></div>
+      <div class="main__timer-warmup" v-show="warmupInitiated"></div>
     </div>
     <div class="main__stats">
       <div class="main__stats-avgOf5"></div>
@@ -45,14 +43,17 @@
 <script>
 import generateScramble from "@/utils/cubeScrambler.js";
 import Stopwatch from "@/utils/stopwatch.js";
+const storage = require("@/utils/appStorage.js");
 
 export default {
   data() {
     return {
       darkThemeEnabled: null,
+      warmupInitiated: null,
       timerRunning: false,
       cubeScramble: generateScramble(),
-      timer: null
+      timer: null,
+      warmupDuration: 0
     };
   },
 
@@ -71,6 +72,8 @@ export default {
     },
 
     startTimer() {
+      this.warmupInitiated = false;
+      this.timer.reset();
       this.timer.start();
       this.timerRunning = true;
     },
@@ -78,22 +81,54 @@ export default {
     stopTimer() {
       this.timer.stop();
       this.timerRunning = false;
-      this.timer.reset();
+    },
+
+    initWarmup() {
+      this.warmupInitiated = true;
+
+      let timeRemaining = this.warmupDuration;
+      let countdown = setInterval(() => {
+        let timeStr =
+          timeRemaining.toString() === "0" ? "" : timeRemaining.toString();
+        document.querySelector(".main__timer-warmup").innerHTML = timeStr;
+        timeRemaining -= 1;
+        if (timeRemaining === -1) {
+          clearInterval(countdown);
+          this.startTimer();
+        }
+      }, 1000);
     },
 
     checkTheme() {
       let body = document.querySelector("body");
       this.darkThemeEnabled = body.classList.contains("dark-theme");
+    },
+
+    handleSpacebar(e) {
+      if (e.keyCode === 32 && !this.warmupInitiated) {
+        this.timerRunning ? this.stopTimer() : this.initWarmup();
+      }
     }
   },
 
   mounted() {
     this.timer = new Stopwatch();
     this.$nextTick(this.checkTheme);
+
+    let settings = storage.loadSettings();
+    settings.sections["General"].options.find(option => {
+      if (option.name === "warmupDuration") this.warmupDuration = option.value;
+    });
+
+    document.addEventListener("keyup", this.handleSpacebar);
   },
 
   updated() {
     this.checkTheme();
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("keyup", this.handleSpacebar);
   }
 };
 </script>
@@ -132,8 +167,7 @@ export default {
 
   &__timer {
     display: grid;
-    grid-template-rows: 70% 30%;
-    //position: relative;
+    grid-template-rows: 60% 40%;
 
     &-clock {
       grid-row: 1;
@@ -141,23 +175,21 @@ export default {
       justify-content: center;
       align-items: center;
 
-      //.main-clock {
-      // top: 0;
-      // left: 50%;
-      // transform: translateX(-50%);
-      // width: 100%;
-      // position: absolute;
       font-family: monospace;
-      font-size: 24vh;
-      //}
+      font-size: 18vh;
     }
 
-    &-controls {
+    &-control {
       grid-row: 2;
-      border: 1px solid white;
+      display: flex;
+      justify-content: center;
+      position: relative;
     }
 
     &-warmup {
+      color: var(--orange);
+      font-size: 24vh;
+      align-self: center;
     }
   }
 
@@ -188,6 +220,38 @@ export default {
 }
 
 .button--statistics {
+}
+
+.button-control {
+  .scale(0.95);
+  border-radius: 1vmax;
+  cursor: pointer;
+
+  width: 33%;
+  height: 60%;
+  font-size: 6vh;
+  font-weight: bold;
+
+  align-self: center;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.button--start-timer {
+  background: var(--green);
+  color: darken(#98c379, 30%);
+}
+
+.button--stop-timer {
+  background: var(--dark-red);
+  color: pink;
+}
+
+.spacebar-hint {
+  position: absolute;
 }
 
 .rotato {
