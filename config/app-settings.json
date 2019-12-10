@@ -3,13 +3,13 @@
   "sections": {
     "General": {
       "options": [
-				{
-					"name": "warmupDuration",
-					"value": 3,
-					"description": "Warmup Duration",
-					"inputType": "normal"
-				}
-			]
+        {
+          "name": "warmupDuration",
+          "value": 3,
+          "description": "Warmup Duration",
+          "inputType": "normal"
+        }
+      ]
     },
     "Appearance": {
       "options": [

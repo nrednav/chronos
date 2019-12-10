@@ -1,17 +1,13 @@
 const fs = require("fs");
 
-function loadSettings() {
-  return JSON.parse(fs.readFileSync("config/app-settings.json"));
+function load(filename) {
+  return JSON.parse(fs.readFileSync(filename));
 }
 
-function saveSettings(settings) {
-  fs.writeFile(
-    "config/app-settings.json",
-    JSON.stringify(settings, null, 2),
-    err => {
-      if (err) throw err;
-    }
-  );
+function save(filename, object) {
+  fs.writeFile(filename, JSON.stringify(object, null, 2), err => {
+    if (err) throw err;
+  });
 }
 
-export { loadSettings, saveSettings };
+export { load, save };

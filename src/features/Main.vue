@@ -32,7 +32,7 @@
       </div>
       <div class="main__timer-warmup" v-show="warmupInitiated"></div>
     </div>
-    <div class="main__stats">
+    <div class="main__stats" v-show="!warmupInitiated">
       <div class="main__stats-avgOf5">
         <div class="stats--title">Avg. of Past 5</div>
         <div class="stats--value">5m 40s</div>
@@ -128,7 +128,7 @@ export default {
     this.timer = new Stopwatch();
     this.$nextTick(this.checkTheme);
 
-    let settings = storage.loadSettings();
+		let settings = storage.load("config/app-settings.json");
     settings.sections["General"].options.find(option => {
       if (option.name === "warmupDuration") this.warmupDuration = option.value;
     });
@@ -200,7 +200,7 @@ export default {
     }
 
     &-warmup {
-      color: var(--orange);
+      color: var(--warmup-text-color);
       font-size: 36vh;
       align-self: center;
       grid-row: ~"1/3";
@@ -220,7 +220,7 @@ export default {
     .stats--title {
       font-size: 3vh;
       font-weight: bold;
-      color: var(--yellow);
+			color: var(--stats-title);
 
       &:after {
         content: "";
@@ -228,14 +228,14 @@ export default {
         margin: 0 auto;
         width: 50%;
         padding-top: 2vh;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid var(--text-color);
       }
     }
 
     .stats--value {
       padding-top: 2vh;
       font-size: 4vh;
-      color: var(--orange);
+			color: var(--stats-value);
     }
   }
 }
@@ -262,6 +262,8 @@ export default {
   text-align: center;
   align-items: center;
   align-self: center;
+
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
 }
 
 .button--statistics {
@@ -271,8 +273,8 @@ export default {
   font-size: 4vh;
   justify-self: center;
 
-  background: var(--clover-lime);
-  color: darken(#fce883, 40%);
+	background: var(--stats-button);
+	color: var(--stats-button-text);
 }
 
 .button-control {

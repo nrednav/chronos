@@ -8,7 +8,7 @@
 const storage = require("./utils/appStorage.js");
 
 function checkDarkThemeEnabled() {
-  const settings = storage.loadSettings();
+  const settings = storage.load("config/app-settings.json");
   const options = settings.sections["Appearance"].options;
   const darkThemeEnabled = options.find(option => {
     if (option.name === "darkThemeEnabled") return option.value;

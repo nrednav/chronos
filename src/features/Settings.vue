@@ -69,7 +69,7 @@
 
 <script>
 const storage = require("../utils/appStorage.js");
-const appSettings = storage.loadSettings();
+const appSettings = storage.load("config/app-settings.json");
 
 export default {
   settings: appSettings,
@@ -128,7 +128,6 @@ export default {
     },
 
     discardChanges() {
-      console.log("discarding changes");
       this.unsavedChanges.forEach(change => {
         let index = change.optionIndex;
         let firstValue = change.firstValue;
@@ -141,8 +140,7 @@ export default {
     },
 
     saveSettings() {
-      console.log("saving changes");
-      storage.saveSettings(this.$options.settings);
+			storage.save("config/app-settings.json", this.$options.settings);
       this.unsavedChanges.clear();
       this.settingsChanged = false;
     },

@@ -49,11 +49,9 @@ export default {
     }
   },
   mounted() {
-    console.log("mounted");
     this.$nextTick(this.checkTheme);
   },
   updated() {
-    console.log("updated");
     this.checkTheme();
   }
 };
@@ -125,8 +123,8 @@ export default {
     }
 
     #btn-view-statistics {
-      background: var(--clover-lime);
-      color: darken(#fce883, 40%);
+			background: var(--stats-button);
+			color: var(--stats-button-text);
     }
   }
 }
