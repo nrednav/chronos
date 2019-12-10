@@ -125,8 +125,8 @@ export default {
     }
 
     #btn-view-statistics {
-      background: var(--yellow);
-      color: darken(#e5c07b, 30%);
+      background: var(--clover-lime);
+      color: darken(#fce883, 40%);
     }
   }
 }

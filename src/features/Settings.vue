@@ -266,13 +266,14 @@ export default {
             &::after {
               content: "\2714";
               color: white;
+              font-size: 3vh;
             }
           }
         }
 
         .checkmark__box {
-          width: 2vw;
-          height: 2vw;
+          width: 4vh;
+          height: 4vh;
           border: 2px solid #ccc;
           border-radius: 3px;
           display: flex;

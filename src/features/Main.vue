@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="main__timer" v-if="timer">
-      <div class="main__timer-clock" v-show="!warmupInitiated"></div>
+      <div class="main__timer-clock" v-show="!warmupInitiated">00:00:00</div>
       <div class="main__timer-control" v-show="!warmupInitiated">
         <div
           class="button-control button--start-timer"
@@ -33,9 +33,17 @@
       <div class="main__timer-warmup" v-show="warmupInitiated"></div>
     </div>
     <div class="main__stats">
-      <div class="main__stats-avgOf5"></div>
-      <div class="main__stats-best"></div>
-      <div class="button--statistics"></div>
+      <div class="main__stats-avgOf5">
+        <div class="stats--title">Avg. of Past 5</div>
+        <div class="stats--value">5m 40s</div>
+      </div>
+      <div class="main__stats-best">
+        <div class="stats--title">Best Time</div>
+        <div class="stats--value">4m 20s</div>
+      </div>
+      <div class="button--statistics" @click="goStats">
+        STATISTICS
+      </div>
     </div>
   </div>
 </template>
@@ -60,6 +68,11 @@ export default {
   methods: {
     goHome() {
       this.$router.push("/");
+    },
+
+    goStats() {
+      if (this.timerRunning) this.stopTimer();
+      this.$router.push("/stats");
     },
 
     generateScramble() {
@@ -142,7 +155,7 @@ export default {
   height: 100%;
 
   display: grid;
-  grid-template-rows: 20% 60% 20%;
+  grid-template-rows: 20% 50% 30%;
 
   &__header {
     display: grid;
@@ -188,22 +201,41 @@ export default {
 
     &-warmup {
       color: var(--orange);
-      font-size: 24vh;
+      font-size: 36vh;
       align-self: center;
+      grid-row: ~"1/3";
     }
   }
 
   &__stats {
-    background: var(--blue);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
-    &-avgOf5 {
-      border: 1px solid white;
+    * {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    &-best {
-      border: 1px solid white;
+    .stats--title {
+      font-size: 3vh;
+      font-weight: bold;
+      color: var(--yellow);
+
+      &:after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+        padding-top: 2vh;
+        border-bottom: 1px solid white;
+      }
+    }
+
+    .stats--value {
+      padding-top: 2vh;
+      font-size: 4vh;
+      color: var(--orange);
     }
   }
 }
@@ -219,25 +251,36 @@ export default {
   }
 }
 
-.button--statistics {
-}
-
-.button-control {
+.button-general {
   .scale(0.95);
   border-radius: 1vmax;
   cursor: pointer;
-
-  width: 33%;
-  height: 60%;
-  font-size: 6vh;
   font-weight: bold;
-
-  align-self: center;
 
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
+  align-self: center;
+}
+
+.button--statistics {
+  .button-general();
+  width: 60%;
+  height: 40%;
+  font-size: 4vh;
+  justify-self: center;
+
+  background: var(--clover-lime);
+  color: darken(#fce883, 40%);
+}
+
+.button-control {
+  .button-general();
+  width: 33%;
+  height: 60%;
+  font-size: 6vh;
+  align-self: center;
 }
 
 .button--start-timer {
