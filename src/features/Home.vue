@@ -22,7 +22,7 @@
         id="btn-view-statistics"
         @click="$router.push('/stats')"
       >
-        STATISTICS
+        STATS
       </div>
       <div
         class="primary-button"
@@ -123,8 +123,8 @@ export default {
     }
 
     #btn-view-statistics {
-			background: var(--stats-button);
-			color: var(--stats-button-text);
+      background: var(--stats-button);
+      color: var(--stats-button-text);
     }
   }
 }
