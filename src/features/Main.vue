@@ -16,18 +16,29 @@
       <div class="main__timer-clock" v-show="!warmupInitiated">00:00:00</div>
       <div class="main__timer-control" v-show="!warmupInitiated">
         <div
-          class="button-control button--start-timer"
-          v-show="!timerRunning"
+          class="button--control button--start-timer"
+          v-show="!timerRunning && !promptSaveSolve"
           @click="initWarmup"
         >
           START
         </div>
         <div
-          class="button-control button--stop-timer"
-          v-show="timerRunning"
+          class="button--control button--stop-timer"
+          v-show="timerRunning && !promptSaveSolve"
           @click="stopTimer"
         >
           STOP
+        </div>
+        <div class="save-solve-dialog" v-show="promptSaveSolve">
+          <div class="button--control button--red" @click="handleSavePrompt">
+            DISCARD
+          </div>
+          <div
+            class="button--control button--green"
+            @click="handleSavePrompt('save')"
+          >
+            SAVE
+          </div>
         </div>
       </div>
       <div class="main__timer-warmup" v-show="warmupInitiated"></div>
@@ -59,6 +70,7 @@ export default {
     return {
       darkThemeEnabled: null,
       warmupInitiated: null,
+      promptSaveSolve: null,
       timerRunning: false,
       cubeScramble: generateScramble(),
       timer: null,
@@ -95,11 +107,18 @@ export default {
     stopTimer() {
       this.timer.stop();
       this.timerRunning = false;
-			stats.history.push({
-				date: new Date(),
-				solve_time: this.timer.getTime()
-			});
-			storage.save("user_data/stats.json", stats);
+      this.promptSaveSolve = true;
+    },
+
+    handleSavePrompt(decision) {
+      if (decision === "save") {
+        stats.history.push({
+          date: new Date(),
+          solve_time: this.timer.getTime()
+        });
+        storage.save("user_data/stats.json", stats);
+      }
+      this.promptSaveSolve = false;
     },
 
     initWarmup() {
@@ -134,7 +153,7 @@ export default {
     this.timer = new Stopwatch();
     this.$nextTick(this.checkTheme);
 
-		let settings = storage.load("config/app-settings.json");
+    let settings = storage.load("config/app-settings.json");
     settings.sections["General"].options.find(option => {
       if (option.name === "warmupDuration") this.warmupDuration = option.value;
     });
@@ -226,7 +245,7 @@ export default {
     .stats--title {
       font-size: 3vh;
       font-weight: bold;
-			color: var(--stats-title);
+      color: var(--stats-title);
 
       &:after {
         content: "";
@@ -241,7 +260,7 @@ export default {
     .stats--value {
       padding-top: 2vh;
       font-size: 4vh;
-			color: var(--stats-value);
+      color: var(--stats-value);
     }
   }
 }
@@ -257,7 +276,7 @@ export default {
   }
 }
 
-.button-general {
+.button--general {
   .scale(0.95);
   border-radius: 1vmax;
   cursor: pointer;
@@ -269,40 +288,50 @@ export default {
   align-items: center;
   align-self: center;
 
-	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
 }
 
 .button--statistics {
-  .button-general();
+  .button--general();
   width: 60%;
   height: 40%;
   font-size: 3vmax;
   justify-self: center;
 
-	background: var(--stats-button);
-	color: var(--stats-button-text);
+  background: var(--stats-button);
+  color: var(--stats-button-text);
 }
 
-.button-control {
-  .button-general();
+.button--control {
+  .button--general();
   width: 33%;
   height: 60%;
   font-size: 6vh;
   align-self: center;
 }
 
-.button--start-timer {
+.button--green {
   background: var(--green);
   color: darken(#98c379, 30%);
 }
 
-.button--stop-timer {
+.button--red {
   background: var(--dark-red);
   color: pink;
 }
 
-.spacebar-hint {
-  position: absolute;
+.button--start-timer {
+  .button--green();
+}
+
+.button--stop-timer {
+  .button--red();
+}
+
+.save-solve-dialog {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .rotato {
