@@ -1,22 +1,23 @@
 <template>
-  <div id="app-stats">
-    Stats
-    <br />
+  <div id="stats">
     <router-link to="/">Home</router-link>
-    <br />
-    <router-link to="/settings">Settings</router-link>
   </div>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  data() {
+    return {};
+  }
+});
 </script>
 
 <style lang="less">
 @import "../assets/styles/colors.less";
 
-#app-stats {
+#stats {
   width: 100%;
-  height: 100%;
 }
 </style>

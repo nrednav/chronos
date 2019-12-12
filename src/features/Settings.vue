@@ -53,17 +53,32 @@
                 :id="`option-checkbox-${index}`"
                 type="checkbox"
                 class="checkmark__input"
-                @click="handleSettings(option, index)"
+                @click="handleCheckboxInput(option, index)"
               />
               <div class="checkmark__box"></div>
             </label>
+            <!-- .checkmark -->
+
+            <div class="input--normal" v-if="option.inputType === 'normal'">
+              <input
+                type="text"
+                :id="`option-textfield-${index}`"
+                maxlength="2"
+                :value="option.value"
+                @change="handleTextInput(option, index)"
+              />
+            </div>
+            <!-- .input normal -->
           </div>
           <div class="panel-option-description">
             {{ option.description }}
           </div>
         </div>
+        <!-- .panel-option -->
       </div>
+      <!-- #panel-options -->
     </div>
+    <!-- #panel -->
   </div>
 </template>
 
@@ -108,7 +123,7 @@ export default {
       this.$router.push("/");
     },
 
-    handleSettings(option, index) {
+    handleCheckboxInput(option, index) {
       this.activePanel.value.options[index].value = !option.value;
 
       let firstValue = !option.value;
@@ -127,6 +142,49 @@ export default {
       if (!this.settingsChanged) this.settingsChanged = true;
     },
 
+    validateTextInput(event, index) {
+      const validNumericInput = /^\d+$/;
+      if (
+        !validNumericInput.test(event.target.value) ||
+        parseInt(event.target.value) < 0
+      ) {
+        if (this.settingsChanged) this.settingsChanged = false;
+        this.activePanel.value.options[index].value = event.target.value;
+        event.target.style.border = "1px solid red";
+        event.target.focus();
+        event.target.setAttribute(
+          "title",
+          "Please enter a positive numeric value."
+        );
+        return false;
+      }
+      return true;
+    },
+
+    handleTextInput(option, index) {
+      if (!this.validateTextInput(event, index)) {
+        return;
+      }
+
+      event.target.style.border = "1px solid white";
+      let firstValue = this.activePanel.value.options[index].value;
+
+      if (this.unsavedChanges.get(option.name)) {
+        firstValue = this.unsavedChanges.get(option.name).firstValue;
+      }
+
+      let change = {
+        panelName: this.activePanel.name,
+        optionIndex: index,
+        optionValue: option.value,
+        firstValue
+      };
+
+      this.unsavedChanges.set(option.name, change);
+      this.activePanel.value.options[index].value = event.target.value;
+      if (!this.settingsChanged) this.settingsChanged = true;
+    },
+
     discardChanges() {
       this.unsavedChanges.forEach(change => {
         let index = change.optionIndex;
@@ -140,7 +198,7 @@ export default {
     },
 
     saveSettings() {
-			storage.save("config/app-settings.json", this.$options.settings);
+      storage.save("config/app-settings.json", this.$options.settings);
       this.unsavedChanges.clear();
       this.settingsChanged = false;
     },
@@ -337,6 +395,20 @@ export default {
 
   .active-li {
     border-right: 4px solid var(--blue);
+  }
+
+  .input--normal {
+    input[type="text"] {
+      background: var(--option-text-input);
+      border: 0.1px solid white;
+      width: 12vh;
+      height: 6vh;
+      padding: 2vh;
+      color: white;
+      font-size: 3vh;
+      text-align: center;
+      outline: none;
+    }
   }
 }
 </style>
