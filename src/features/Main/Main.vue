@@ -7,11 +7,13 @@
       :warmupInitiated="warmupInitiated"
       :timerRunning="timerRunning"
       @propUpdated="updateParent"
+      @statsUpdated="updateStats"
     />
     <Stats
       :stats="$options.stats"
       :warmupInitiated="warmupInitiated"
       @goStats="goStats"
+      ref="statsComponent"
     />
   </div>
 </template>
@@ -55,6 +57,10 @@ export default {
 
     updateParent(obj) {
       this[obj.name] = obj.value;
+    },
+
+    updateStats() {
+      this.$refs.statsComponent.computeAvgOf5();
     }
   },
 

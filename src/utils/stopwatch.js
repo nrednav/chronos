@@ -63,7 +63,14 @@ function Stopwatch() {
     let minutes = formattedTime.substr(0, 2);
     let seconds = formattedTime.substr(3, 2);
     let milliseconds = formattedTime.substr(6, 2);
-    return `${minutes}m ${seconds}s ${milliseconds}ms`;
+    return `${minutes}:${seconds}.${milliseconds}`;
+  };
+
+  this.getTimeValue = function(timeStr) {
+    let minutes = parseFloat(timeStr.substr(0, 2));
+    let seconds = parseFloat(timeStr.substr(3, 2));
+    let milliseconds = parseFloat(timeStr.substr(6, 2));
+    return milliseconds + seconds * 1000 + minutes * 60 * 1000;
   };
 }
 

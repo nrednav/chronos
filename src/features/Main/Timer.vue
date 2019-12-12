@@ -95,20 +95,40 @@ export default {
     },
 
     handleSpacebar(e) {
-      if (e.keyCode === 32 && !this.warmupInitiated) {
+      if (e.keyCode === 32 && !this.warmupInitiated && !this.promptSaveSolve) {
         this.timerRunning ? this.stopTimer() : this.initWarmup();
       }
     },
 
     handleSavePrompt(decision) {
       if (decision === "save") {
-        this.stats.history.push({
-          date: new Date(),
-          solve_time: this.timer.getTime()
-        });
-        this.storage.save("user_data/stats.json", this.stats);
+        this.saveSolveTime();
+        this.$emit("statsUpdated");
       }
       this.promptSaveSolve = false;
+    },
+
+    saveSolveTime() {
+      this.stats.history.push({
+        date: new Date(),
+        solve_time: this.timer.getTime(),
+        solve_time_value: this.timer.getTimeValue(this.timer.getTime())
+      });
+      this.calculateBestTime(this.timer.getTime());
+      this.storage.save("user_data/stats.json", this.stats);
+    },
+
+    calculateBestTime(solveTime) {
+      let solveTimeValue = this.timer.getTimeValue(solveTime);
+      let bestTimeValue = this.stats.best_time_value;
+
+      if (solveTimeValue < bestTimeValue) {
+        this.stats.best_time = solveTime;
+        this.stats.best_time_value = solveTimeValue;
+      } else {
+        this.stats.best_time = this.stats.best_time;
+        this.stats.best_time_value = bestTimeValue;
+      }
     }
   },
 
