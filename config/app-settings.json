@@ -5,7 +5,7 @@
       "options": [
         {
           "name": "warmupDuration",
-          "value": "5",
+          "value": "2",
           "description": "Warmup Duration (seconds)",
           "inputType": "normal"
         }

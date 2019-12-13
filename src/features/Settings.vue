@@ -339,6 +339,20 @@ export default {
         }
       }
 
+      .input--normal {
+        input[type="text"] {
+          background: var(--option-text-input);
+          border: 0.1px solid var(--text-input-border);
+          width: 12vh;
+          height: 6vh;
+          padding: 2vh;
+          color: var(--text-color);
+          font-size: 3vh;
+          text-align: center;
+          outline: none;
+        }
+      }
+
       .panel-option-description {
         align-self: center;
         font-size: 1.25em;
@@ -395,20 +409,6 @@ export default {
 
   .active-li {
     border-right: 4px solid var(--blue);
-  }
-
-  .input--normal {
-    input[type="text"] {
-      background: var(--option-text-input);
-      border: 0.1px solid white;
-      width: 12vh;
-      height: 6vh;
-      padding: 2vh;
-      color: white;
-      font-size: 3vh;
-      text-align: center;
-      outline: none;
-    }
   }
 }
 </style>
