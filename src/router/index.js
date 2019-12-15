@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import Home from "@/features/Home.vue";
 import Settings from "@/features/Settings.vue";
-import Stats from "@/features/Stats.vue";
+import Stats from "@/features/Stats/Stats.vue";
 import Main from "@/features/Main/Main.vue";
 
 Vue.use(VueRouter);
