@@ -9,7 +9,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-//import statsHelper from "@/utils/statsHelper.js";
 import statsHelper from "@/utils/statsHelper.ts";
 
 export default Vue.extend({
