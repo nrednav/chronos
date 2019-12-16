@@ -14,7 +14,7 @@
     </div>
     <div id="hero-container">
       <div class="hero-title">Chronos</div>
-      <div class="hero-subtitle">A Simple Rubik's Cube Timer & Tracker</div>
+      <div class="hero-subtitle">A Simple 3x3 Rubik's Cube Timer & Tracker</div>
     </div>
     <div id="primary-buttons-container">
       <div

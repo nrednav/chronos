@@ -1,6 +1,41 @@
 {
-  "best_time": "99:59.99",
-  "best_time_value": 6000000,
+  "best_time": "00:01.79",
+  "best_time_value": 1079,
   "history": [
+    {
+      "date": "2019-12-4T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 9095
+    },
+    {
+      "date": "2019-12-9T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 3095
+    },
+    {
+      "date": "2019-12-16T12:38:24.083Z",
+      "solve_time": "00:05.11",
+      "solve_time_value": 5011
+    },
+    {
+      "date": "2019-12-16T12:41:16.682Z",
+      "solve_time": "00:04.36",
+      "solve_time_value": 4036
+    },
+    {
+      "date": "2019-12-16T12:43:43.562Z",
+      "solve_time": "00:03.23",
+      "solve_time_value": 3023
+    },
+    {
+      "date": "2019-12-16T12:49:24.600Z",
+      "solve_time": "00:02.39",
+      "solve_time_value": 2039
+    },
+    {
+      "date": "2019-12-16T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 1079
+    }
   ]
 }

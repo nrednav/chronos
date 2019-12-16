@@ -9,48 +9,68 @@
 
 <script lang="ts">
 import Vue from "vue";
+import statsHelper from "@/utils/statsHelper.js";
 
 export default Vue.extend({
   data() {
     return {
-      stats: [
-        { title: "Daily", value: 0 },
-        { title: "Weekly", value: 1 },
-        { title: "Monthly", value: 2 },
-        { title: "Avg of Past 5", value: 3 },
-        { title: "Best Time", value: 4 }
-      ]
+      stats: null
     };
+  },
+
+  mounted() {
+    this.stats = [
+      { title: "Daily", value: statsHelper.getAvg("daily") },
+      { title: "Weekly", value: statsHelper.getAvg("weekly") },
+      { title: "Monthly", value: statsHelper.getAvg("monthly") },
+      { title: "Avg of Past 5", value: statsHelper.getAvg("past5") },
+      { title: "Best Time", value: statsHelper.getBestTime() }
+    ];
   }
 });
 </script>
 
 <style lang="less">
 .stats--main {
-  background: green;
   height: 54vh;
-  padding: 5%;
+  padding: 2.5% 5%;
 
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 
-  &-item {
-    width: 33%;
-    border: 1px solid white;
+  * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    align-items: center;
+  &-item {
+    width: 30%;
+    font-size: 4vh;
+
+    &:nth-child(4),
+    &:nth-child(5) {
+      :first-child {
+        color: var(--green);
+      }
+    }
 
     &-title {
-      background: black;
-      color: white;
+      color: var(--blue);
+      &:after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 75%;
+        padding-top: 2vh;
+        border-bottom: 1px solid var(--text-color);
+      }
     }
 
     &-value {
-      background: white;
-      color: black;
+      padding-top: 2vh;
+      //font-size: 4vh;
     }
   }
 }

@@ -27,7 +27,5 @@ export default Vue.extend({
 
 #stats {
   width: 100%;
-  background: black;
-  color: white;
 }
 </style>
