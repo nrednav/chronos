@@ -9,12 +9,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-import statsHelper from "@/utils/statsHelper.js";
+//import statsHelper from "@/utils/statsHelper.js";
+import statsHelper from "@/utils/statsHelper.ts";
 
 export default Vue.extend({
-  data() {
+  data(): {
+    stats: Array<any>;
+  } {
     return {
-      stats: null
+      stats: new Array<any>()
     };
   },
 
@@ -70,7 +73,6 @@ export default Vue.extend({
 
     &-value {
       padding-top: 2vh;
-      //font-size: 4vh;
     }
   }
 }
