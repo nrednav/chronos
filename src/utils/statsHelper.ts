@@ -6,7 +6,7 @@ const storage = require("@/utils/appStorage");
  */
 
 function computeAverage(arr: number[]): number {
-  return arr.reduce((a, b) => a + b, 0) / 5;
+  return arr.reduce((a, b) => a + b, 0) / arr.length;
 }
 
 function formatTime(value: number): string {
@@ -139,7 +139,45 @@ function getBestTime(): string {
   return stats.best_time;
 }
 
+function getChartData(): any {
+  let stats = storage.load("user_data/stats.json");
+  let validStats = [];
+
+  // Extract stats which fall within past month
+  for (let i = stats.history.length - 1; i >= 0; i--) {
+    let dateOfStat = stats.history[i].date;
+    if (isValidTimeframe(dateOfStat, 30))
+      validStats.push({ ...stats.history[i], index: i });
+    else break;
+  }
+
+  let validStatsMap = new Map();
+
+  // Extract solve times for each valid stat date
+  validStats.forEach(validStat => {
+    let validTimes = [];
+    let statDate = extractDateStr(validStat.date);
+
+    if (validStatsMap.get(statDate)) validTimes = validStatsMap.get(statDate);
+
+    validTimes.push(validStat.solve_time_value);
+    validStatsMap.set(statDate, validTimes);
+  });
+
+  // Compute averages for each valid stat day
+  validStatsMap.forEach((value, key) => {
+    if (value.length > 1) validStatsMap.set(key, computeAverage(value) / 1000);
+    else validStatsMap.set(key, value[0] / 1000);
+  });
+
+  return {
+    labels: Array.from(validStatsMap.keys()),
+    data: Array.from(validStatsMap.values())
+  };
+}
+
 export default {
   getAvg,
-  getBestTime
+  getBestTime,
+  getChartData
 };

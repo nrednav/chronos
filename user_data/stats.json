@@ -18,54 +18,34 @@
       "solve_time_value": 7095
     },
     {
-      "date": "2019-12-16T12:38:24.083Z",
-      "solve_time": "00:05.11",
-      "solve_time_value": 5011
-    },
-    {
       "date": "2019-12-16T12:41:16.682Z",
       "solve_time": "00:04.36",
       "solve_time_value": 4036
     },
     {
-      "date": "2019-12-16T12:43:43.562Z",
-      "solve_time": "00:03.23",
-      "solve_time_value": 3023
+      "date": "2019-12-16T20:49:16.682Z",
+      "solve_time": "00:08.36",
+      "solve_time_value": 8036
     },
     {
-      "date": "2019-12-16T12:49:24.600Z",
-      "solve_time": "00:02.39",
-      "solve_time_value": 2039
+      "date": "2019-12-16T20:49:16.682Z",
+      "solve_time": "00:06.36",
+      "solve_time_value": 6036
     },
     {
-      "date": "2019-12-16T12:54:42.004Z",
-      "solve_time": "00:01.79",
-      "solve_time_value": 1079
+      "date": "2019-12-17T12:27:09.391Z",
+      "solve_time": "00:07.18",
+      "solve_time_value": 7018
     },
     {
-      "date": "2019-12-16T21:08:05.649Z",
-      "solve_time": "00:05.34",
-      "solve_time_value": 5034
+      "date": "2019-12-17T13:47:30.187Z",
+      "solve_time": "00:10.17",
+      "solve_time_value": 10017
     },
     {
-      "date": "2019-12-16T21:11:33.658Z",
-      "solve_time": "00:01.76",
-      "solve_time_value": 1076
-    },
-    {
-      "date": "2019-12-16T21:38:02.621Z",
-      "solve_time": "00:03.50",
-      "solve_time_value": 3050
-    },
-    {
-      "date": "2019-12-16T21:38:22.820Z",
-      "solve_time": "00:05.54",
-      "solve_time_value": 5054
-    },
-    {
-      "date": "2019-12-16T21:44:51.989Z",
-      "solve_time": "00:01.90",
-      "solve_time_value": 1090
+      "date": "2019-12-17T13:53:31.546Z",
+      "solve_time": "00:03.20",
+      "solve_time_value": 3020
     }
   ]
 }
