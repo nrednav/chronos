@@ -39,7 +39,7 @@ function getChart(theme: string): any {
             },
             scaleLabel: {
               display: true,
-              labelString: "Days",
+              labelString: "Time (days)",
               fontSize: 24,
               fontColor: rootDoc.getPropertyValue(`--axes-labelColor-${theme}`)
             }

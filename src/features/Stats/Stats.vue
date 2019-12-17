@@ -2,13 +2,14 @@
   <div id="stats">
     <Header />
     <Main />
-    <div class="stats--chart-title">PROGRESS</div>
+    <div class="stats--chart-title">Progress</div>
     <Chart
       v-if="chartData && chartOptions"
       :chartdata="chartData"
       :options="chartOptions"
       class="stats--chart-main"
     />
+    <StatHistory />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import Vue from "vue";
 import Header from "@/features/Stats/Header.vue";
 import Main from "@/features/Stats/Main.vue";
 import Chart from "@/features/Stats/Chart.vue";
+import StatHistory from "@/features/Stats/StatHistory.vue";
 
 const chartHelper = require("@/utils/chartHelper.ts").default;
 
@@ -25,7 +27,8 @@ export default Vue.extend({
   components: {
     Header,
     Main,
-    Chart
+    Chart,
+    StatHistory
   },
 
   data() {
@@ -70,7 +73,6 @@ export default Vue.extend({
   &-title {
     font-size: 6vh;
     font-weight: bold;
-    letter-spacing: 2px;
     align-self: center;
 
     .line-divider(~"90%");

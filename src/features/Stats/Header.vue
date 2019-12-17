@@ -5,7 +5,7 @@
       <img src="@/assets/icons/back-dark.svg" v-show="!darkThemeEnabled" />
     </div>
     <div class="stats--header-title">
-      STATS
+      Stats
     </div>
     <div class="stats--header-button" @click="$router.push('/')">
       <img src="@/assets/icons/home.svg" v-show="darkThemeEnabled" />
@@ -55,7 +55,6 @@ export default Vue.extend({
     align-self: center;
     font-size: 6vh;
     font-weight: bold;
-    letter-spacing: 2px;
 
     .line-divider(~"75%");
   }
