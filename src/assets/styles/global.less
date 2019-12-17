@@ -5,3 +5,20 @@
 		transform: scale(@factor);
 	}
 }
+
+.line-divider(@line-width) {
+  &:after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: @line-width;
+    margin-top: 2vh;
+    height: 1px;
+    background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--text-color) 50%,
+    transparent 100%
+    );
+  }
+}

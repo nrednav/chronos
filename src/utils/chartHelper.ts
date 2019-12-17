@@ -9,7 +9,9 @@ function getChart(theme: string): any {
       datasets: [
         {
           data: statsHelper.getChartData().data,
-          pointBackgroundColor: rootDoc.getPropertyValue(`--chart-pointColor-${theme}`),
+          pointBackgroundColor: rootDoc.getPropertyValue(
+            `--chart-pointColor-${theme}`
+          ),
           borderColor: rootDoc.getPropertyValue(`--chart-lineColor-${theme}`),
           borderWidth: 2,
           lineTension: 0
@@ -19,16 +21,12 @@ function getChart(theme: string): any {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      legend: {
-        display: false
-      },
+      legend: { display: false },
       scales: {
         xAxes: [
           {
             type: "time",
-            time: {
-              unit: "day"
-            },
+            time: { unit: "day" },
             ticks: {
               fontColor: rootDoc.getPropertyValue(`--chart-tickColor-${theme}`),
               fontSize: 18,

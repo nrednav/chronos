@@ -57,20 +57,7 @@ export default Vue.extend({
     font-weight: bold;
     letter-spacing: 2px;
 
-    &:after {
-      content: "";
-      display: block;
-      margin: 0 auto;
-      width: 75%;
-      margin-top: 2vh;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        var(--text-color) 50%,
-        transparent 100%
-      );
-    }
+    .line-divider(~"75%");
   }
 
   &-button {
