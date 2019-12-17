@@ -60,6 +60,10 @@ function isValidTimeframe(date: string, maxDifference: number): boolean {
 function getAvg(timeframe: string): string {
   let stats = storage.load("user_data/stats.json");
 
+  if (stats.history.length === 0) {
+    return "N/A";
+  }
+
   if (timeframe === "daily") {
     return computeDailyAvg(stats);
   } else if (timeframe === "weekly") {

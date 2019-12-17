@@ -142,15 +142,14 @@ export default {
       if (!this.settingsChanged) this.settingsChanged = true;
     },
 
-    validateTextInput(event, index) {
+    validateTextInput(event) {
       const validNumericInput = /^\d+$/;
       if (
         !validNumericInput.test(event.target.value) ||
         parseInt(event.target.value) < 0
       ) {
         if (this.settingsChanged) this.settingsChanged = false;
-        this.activePanel.value.options[index].value = event.target.value;
-        event.target.style.border = "1px solid red";
+        event.target.style.border = "2px solid red";
         event.target.focus();
         event.target.setAttribute(
           "title",
@@ -166,7 +165,7 @@ export default {
         return;
       }
 
-      event.target.style.border = "1px solid white";
+      event.target.style.border = "1px solid var(--text-color)";
       let firstValue = this.activePanel.value.options[index].value;
 
       if (this.unsavedChanges.get(option.name)) {
