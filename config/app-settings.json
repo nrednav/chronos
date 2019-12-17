@@ -15,7 +15,7 @@
       "options": [
         {
           "name": "darkThemeEnabled",
-          "value": true,
+          "value": false,
           "description": "Dark Theme",
           "inputType": "checkbox"
         }

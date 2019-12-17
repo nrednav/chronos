@@ -30,9 +30,22 @@
 	--stats-button: var(--yellow);
 	--stats-button-text: darken(#e5c07b, 30%);
 
+  // Stats
+  --stat-timely-title: darken(#61afef, 18%);
+  --stat-regular-title: darken(#98c379, 18%);
+
   // Chart
-  --chart-gridlines: darken(#4b5263, 10%);
-  --chart-tickColor: darken(#abb2bf, 20%);
+  --chart-gridLines-dark: darken(#4b5263, 10%);
+  --chart-tickColor-dark: darken(#abb2bf, 20%);
+  --chart-lineColor-dark: var(--orange);
+  --chart-pointColor-dark: var(--orange);
+  --axes-labelColor-dark: var(--white);
+
+  --chart-gridLines-light: lighten(#4b5263, 50%);
+  --chart-tickColor-light: darken(#abb2bf, 20%);
+  --chart-lineColor-light: var(--orange);
+  --chart-pointColor-light: var(--orange);
+  --axes-labelColor-light: var(--text-color);
 }
 
 .dark-theme {
@@ -54,6 +67,7 @@
 	--stats-button: var(--clover-lime);
 	--stats-button-text: darken(#fce883, 40%);
 
-  // Chart
-  --chart-gridlines: black;
+  // Stats
+  --stat-timely-title: var(--blue);
+  --stat-regular-title: var(--green);
 }

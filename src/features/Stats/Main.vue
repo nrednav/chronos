@@ -54,12 +54,12 @@ export default Vue.extend({
     &:nth-child(4),
     &:nth-child(5) {
       :first-child {
-        color: var(--green);
+        color: var(--stat-regular-title);
       }
     }
 
     &-title {
-      color: var(--blue);
+      color: var(--stat-timely-title);
       &:after {
         content: "";
         display: block;

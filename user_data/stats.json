@@ -1,7 +1,42 @@
 {
-  "best_time": "00:01.76",
-  "best_time_value": 1076,
+  "best_time": "00:01.31",
+  "best_time_value": 1031,
   "history": [
+    {
+      "date": "2019-11-27T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
+    {
+      "date": "2019-11-28T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
+    {
+      "date": "2019-11-29T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
+    {
+      "date": "2019-11-30T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
+    {
+      "date": "2019-12-1T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
+    {
+      "date": "2019-12-2T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
+    {
+      "date": "2019-12-3T12:54:42.004Z",
+      "solve_time": "00:01.79",
+      "solve_time_value": 8095
+    },
     {
       "date": "2019-12-4T12:54:42.004Z",
       "solve_time": "00:01.79",
@@ -46,6 +81,11 @@
       "date": "2019-12-17T13:53:31.546Z",
       "solve_time": "00:03.20",
       "solve_time_value": 3020
+    },
+    {
+      "date": "2019-12-17T16:25:04.817Z",
+      "solve_time": "00:01.31",
+      "solve_time_value": 1031
     }
   ]
 }

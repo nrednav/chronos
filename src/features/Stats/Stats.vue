@@ -2,7 +2,12 @@
   <div id="stats">
     <Header />
     <Main />
-    <Chart :chartdata="chartData" :options="chartOptions" id="leChart" />
+    <Chart
+      v-if="chartData && chartOptions"
+      :chartdata="chartData"
+      :options="chartOptions"
+      id="leChart"
+    />
   </div>
 </template>
 
@@ -13,9 +18,7 @@ import Header from "@/features/Stats/Header.vue";
 import Main from "@/features/Stats/Main.vue";
 import Chart from "@/features/Stats/Chart.vue";
 
-import statsHelper from "@/utils/statsHelper.ts";
-
-const rootDoc = getComputedStyle(document.documentElement);
+const chartHelper = require("@/utils/chartHelper.ts").default;
 
 export default Vue.extend({
   components: {
@@ -25,72 +28,18 @@ export default Vue.extend({
   },
   data() {
     return {
-      chartData: {
-        labels: statsHelper.getChartData().labels,
-        datasets: [
-          {
-            data: statsHelper.getChartData().data,
-            pointBackgroundColor: rootDoc.getPropertyValue("--text-color"),
-            borderColor: rootDoc.getPropertyValue("--orange"),
-            borderWidth: 2,
-            lineTension: 0
-          }
-        ]
-      },
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [
-            {
-              type: "time",
-              time: {
-                unit: "day"
-              },
-              ticks: {
-                fontColor: rootDoc.getPropertyValue("--chart-tickColor")
-              },
-              gridLines: {
-                color: rootDoc.getPropertyValue("--chart-gridlines")
-              },
-              scaleLabel: {
-                display: true,
-                labelString: "Days",
-                fontSize: 24,
-                fontColor: rootDoc.getPropertyValue("--white")
-              }
-            }
-          ],
-          yAxes: [
-            {
-              ticks: {
-                fontColor: rootDoc.getPropertyValue("--chart-tickColor")
-              },
-              gridLines: {
-                color: rootDoc.getPropertyValue("--chart-gridlines")
-              },
-              scaleLabel: {
-                display: true,
-                labelString: "Solve Time",
-                fontSize: 24,
-                fontColor: rootDoc.getPropertyValue("--white")
-              }
-            }
-          ]
-        }
-      }
+      chartData: null,
+      chartOptions: null
     };
   },
 
   mounted() {
-    let chartData = statsHelper.getChartData();
-
-    console.log(chartData);
-    this.chartData.labels = chartData.labels;
-    this.chartData.datasets[0].data = chartData.data;
+    let theme = document.querySelector("body").classList.contains("dark-theme")
+      ? "dark"
+      : "light";
+    const chart = chartHelper.getChart(theme);
+    this.chartData = chart.data;
+    this.chartOptions = chart.options;
   }
 });
 </script>
