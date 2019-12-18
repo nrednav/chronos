@@ -91,6 +91,16 @@
       "date": "2019-12-17T19:54:49.721Z",
       "solve_time": "00:08.20",
       "solve_time_value": 8020
+    },
+    {
+      "date": "2019-12-18T10:00:59.639Z",
+      "solve_time": "00:04.19",
+      "solve_time_value": 4019
+    },
+    {
+      "date": "2019-12-18T10:08:53.900Z",
+      "solve_time": "00:03.49",
+      "solve_time_value": 3049
     }
   ]
 }

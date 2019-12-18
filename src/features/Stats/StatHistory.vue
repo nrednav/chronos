@@ -1,10 +1,11 @@
 <template>
   <div class="stats--history">
+    <DeletionPrompt v-show="showDeletionPrompt" />
     <div class="stats--history-title">History</div>
     <div class="stats--history-list-header">
       Solve #
       <div>Solve Time</div>
-      <div>Date</div>
+      <div>Date / Time</div>
     </div>
     <div class="stats--history-list" v-if="history.length > 0">
       <div
@@ -12,12 +13,16 @@
         v-for="(stat, index) in history"
         :key="index"
       >
-        {{ index + 1 }}.
-        <div>
+        <div class="hli--solve-number">{{ index + 1 }}.</div>
+        <div class="hli--solve-time">
           {{ stat.solve_time }}
         </div>
-        <div>
-          {{ stat.date.substr(0, stat.date.indexOf("T")) }}
+        <div class="hli--solve-date">
+          {{ stat.date.substr(0, stat.date.indexOf("T")) }}<br />
+          {{ stat.date.substr(stat.date.indexOf("T") + 1, 5) }}
+        </div>
+        <div class="hli--delete-stat" @click="openDeletionPrompt">
+          Delete
         </div>
       </div>
     </div>
@@ -26,16 +31,27 @@
 
 <script lang="ts">
 import Vue from "vue";
+import DeletionPrompt from "@/features/Stats/DeletionPrompt.vue";
 
 const storage = require("@/utils/appStorage.js");
 
 export default Vue.extend({
+  components: {
+    DeletionPrompt
+  },
   data(): {
     history: Array<any>;
+    showDeletionPrompt: boolean;
   } {
     return {
-      history: new Array<any>()
+      history: new Array<any>(),
+      showDeletionPrompt: true
     };
+  },
+  methods: {
+    openDeletionPrompt(): void {
+      console.log("deletion prompt");
+    }
   },
   mounted() {
     let stats = storage.load("user_data/stats.json");
@@ -96,6 +112,7 @@ export default Vue.extend({
       grid-template-columns: repeat(4, 1fr);
       align-items: center;
       justify-items: center;
+      text-align: center;
     }
 
     &-header {
@@ -106,7 +123,7 @@ export default Vue.extend({
     }
 
     &-item {
-      height: 12vh;
+      height: 18vh;
       margin: 6vh 0;
       border: 1px solid var(--gutter-grey);
       border-radius: 1vmax;

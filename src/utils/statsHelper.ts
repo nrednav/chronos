@@ -16,10 +16,12 @@ function formatTime(value: number): string {
     value - Number(minutes) * 60000 - Number(seconds) * 1000
   );
   let milliseconds = `${msValue}`;
+  console.log(msValue);
 
   if (minutes.length < 2) minutes = "0" + minutes;
   if (seconds.length < 2) seconds = "0" + seconds;
-  if (milliseconds.length < 3) milliseconds = "0" + milliseconds;
+
+  console.log(milliseconds);
 
   return `${minutes}:${seconds}.${milliseconds.substr(0, 2)}`;
 }
@@ -87,6 +89,8 @@ function computeDailyAvg(stats: any): string {
     }
   });
 
+  if (todaysSolveTimes.length === 0) return "N/A";
+
   let dailyAvg = computeAverage(todaysSolveTimes);
   return formatTime(dailyAvg);
 }
@@ -102,6 +106,8 @@ function computeWeeklyAvg(stats: any): string {
     else break;
   }
 
+  if (weeklySolveTimes.length === 0) return "N/A";
+
   let weeklyAvg = computeAverage(weeklySolveTimes);
   return formatTime(weeklyAvg);
 }
@@ -116,6 +122,8 @@ function computeMonthlyAvg(stats: any): string {
     if (isValidTimeframe(dateOfStat, 30)) monthlySolveTimes.push(statSolveTime);
     else break;
   }
+
+  if (monthlySolveTimes.length === 0) return "N/A";
 
   let monthlyAvg = computeAverage(monthlySolveTimes);
   return formatTime(monthlyAvg);
