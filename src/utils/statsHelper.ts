@@ -16,12 +16,10 @@ function formatTime(value: number): string {
     value - Number(minutes) * 60000 - Number(seconds) * 1000
   );
   let milliseconds = `${msValue}`;
-  console.log(msValue);
 
   if (minutes.length < 2) minutes = "0" + minutes;
   if (seconds.length < 2) seconds = "0" + seconds;
 
-  console.log(milliseconds);
 
   return `${minutes}:${seconds}.${milliseconds.substr(0, 2)}`;
 }

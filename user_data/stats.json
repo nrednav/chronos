@@ -30,7 +30,8 @@
     {
       "date": "2019-12-2T12:54:42.004Z",
       "solve_time": "00:01.79",
-      "solve_time_value": 8095
+      "solve_time_value": 8095,
+      "index": 0
     },
     {
       "date": "2019-12-3T12:54:42.004Z",
@@ -93,14 +94,9 @@
       "solve_time_value": 8020
     },
     {
-      "date": "2019-12-18T10:00:59.639Z",
-      "solve_time": "00:04.19",
-      "solve_time_value": 4019
-    },
-    {
-      "date": "2019-12-18T10:08:53.900Z",
-      "solve_time": "00:03.49",
-      "solve_time_value": 3049
+      "date": "2019-12-18T16:08:45.981Z",
+      "solve_time": "00:04.26",
+      "solve_time_value": 4026
     }
   ]
 }

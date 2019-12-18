@@ -1,8 +1,15 @@
 <template>
   <div class="stats--history">
-    <DeletionPrompt v-show="showDeletionPrompt" />
+    <DeletionPrompt
+      :stat="selectedStat"
+      v-show="showDeletionPrompt"
+      @decisionMade="handleDecision"
+    />
     <div class="stats--history-title">History</div>
-    <div class="stats--history-list-header">
+    <div class="stats--history-unavailable" v-if="history.length === 0">
+      No stats to show.
+    </div>
+    <div class="stats--history-list-header" v-if="history.length > 0">
       Solve #
       <div>Solve Time</div>
       <div>Date / Time</div>
@@ -21,8 +28,8 @@
           {{ stat.date.substr(0, stat.date.indexOf("T")) }}<br />
           {{ stat.date.substr(stat.date.indexOf("T") + 1, 5) }}
         </div>
-        <div class="hli--delete-stat" @click="openDeletionPrompt">
-          Delete
+        <div class="hli--delete-stat" @click="openDeletionPrompt(stat, index)">
+          <img src="@/assets/icons/delete.svg" />
         </div>
       </div>
     </div>
@@ -42,26 +49,59 @@ export default Vue.extend({
   data(): {
     history: Array<any>;
     showDeletionPrompt: boolean;
+    selectedStat: any;
   } {
     return {
       history: new Array<any>(),
-      showDeletionPrompt: true
+      showDeletionPrompt: false,
+      selectedStat: null
     };
   },
   methods: {
-    openDeletionPrompt(): void {
-      console.log("deletion prompt");
+    openDeletionPrompt(stat: any, index: number): void {
+      stat.index = index;
+      this.selectedStat = stat;
+      this.showDeletionPrompt = true;
+    },
+    handleDecision(result: any): void {
+      if (result.decision === false) {
+        this.showDeletionPrompt = false;
+        return;
+      }
+      this.showDeletionPrompt = false;
+      this.deleteStat(result.index);
+    },
+    deleteStat(index: number): void {
+      console.log(index);
+      console.log(this.history.length);
+      this.history.splice(index, 1);
+      console.log(this.history.length);
+
+      let stats = storage.load("user_data/stats.json");
+      if (stats.history.length > 15) {
+        stats.history.splice(stats.history.length - 15, 15);
+        stats.history = stats.history.concat(this.history);
+      } else {
+        stats.history = this.history;
+      }
+      storage.save("user_data/stats.json", stats);
+
+      setTimeout(() => {
+        if (stats.history.length > 15) {
+          this.history = stats.history.splice(stats.history.length - 15, 15);
+        } else {
+          this.history = stats.history;
+        }
+      }, 0);
     }
   },
   mounted() {
     let stats = storage.load("user_data/stats.json");
     setTimeout(() => {
       if (stats.history.length > 15) {
-        this.history = stats.history
-          .splice(stats.history.length - 15, 15)
-          .reverse();
+        this.history = stats.history.splice(stats.history.length - 15, 15);
       } else {
-        this.history = stats.history.reverse();
+        this.history = stats.history;
       }
     }, 0);
   }
@@ -120,6 +160,8 @@ export default Vue.extend({
       width: 75%;
       justify-self: center;
       color: var(--history-list-header);
+      font-weight: bold;
+      font-size: 3vh;
     }
 
     &-item {
@@ -129,6 +171,18 @@ export default Vue.extend({
       border-radius: 1vmax;
       background: var(--history-listItem-bg);
       .list-item-base();
+    }
+  }
+}
+
+.hli {
+  &--delete-stat img {
+    width: 6vh;
+    height: 6vh;
+
+    &:hover {
+      .scale(1.1);
+      cursor: pointer;
     }
   }
 }
