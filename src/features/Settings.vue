@@ -1,5 +1,12 @@
 <template>
   <div id="app-settings">
+    <Prompt
+      v-if="showPrompt && triggeringOption"
+      @decisionMade="handlePromptEvent"
+    >
+      <div slot="promptText">{{ triggeringOption.promptText }}</div>
+      <div slot="actionButtonText">{{ triggeringOption.value }}</div>
+    </Prompt>
     <div id="panel-list">
       <div
         id="panel-list-item"
@@ -69,6 +76,17 @@
               />
             </div>
             <!-- .input normal -->
+
+            <div class="input--button" v-if="option.inputType === 'button'">
+              <div
+                class="option--action-button"
+                :style="option.style"
+                @click="handleOptionAction(option)"
+              >
+                {{ option.value }}
+              </div>
+            </div>
+            <!-- .input button -->
           </div>
           <div class="panel-option-description">
             {{ option.description }}
@@ -83,10 +101,18 @@
 </template>
 
 <script>
+import Prompt from "@/features/Prompt.vue";
+
 const storage = require("../utils/appStorage.js");
 const appSettings = storage.load("config/app-settings.json");
 
+import fileDepsHelper from "@/utils/fileDepsHelper.js";
+
 export default {
+  components: {
+    Prompt
+  },
+
   settings: appSettings,
 
   data() {
@@ -95,11 +121,27 @@ export default {
       activePanel: {},
       panelWasClicked: false,
       settingsChanged: false,
-      unsavedChanges: new Map()
+      unsavedChanges: new Map(),
+      showPrompt: false,
+      triggeringOption: null
     };
   },
 
   methods: {
+    handleOptionAction(option) {
+      this.triggeringOption = option;
+      this.showPrompt = true;
+    },
+
+    handlePromptEvent(decision) {
+      if (decision === false) {
+        this.showPrompt = false;
+      } else {
+        fileDepsHelper.resetAllStats();
+        this.showPrompt = false;
+      }
+    },
+
     viewPanel(name, value) {
       let item = event.target;
       this.resetClassList(item.parentElement);
@@ -409,5 +451,20 @@ export default {
   .active-li {
     border-right: 4px solid var(--blue);
   }
+}
+
+.option--action-button {
+  .scale(0.9);
+  cursor: pointer;
+
+  width: 24vh;
+  height: 9vh;
+  font-size: 4vh;
+
+  border-radius: 1vmax;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

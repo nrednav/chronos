@@ -21,6 +21,20 @@
         }
       ]
     },
-    "Statistics": {}
+    "Statistics": {
+      "options": [
+        {
+          "name": "resetAllStats",
+          "value": "RESET",
+          "description": "Reset all statistics",
+          "promptText": "Are you sure you want to reset all statistics?",
+          "inputType": "button",
+          "style": {
+            "backgroundColor": "var(--dark-red)",
+            "color": "pink"
+          }
+        }
+      ]
+    }
   }
 }
