@@ -4,7 +4,7 @@
       <div class="deletion-prompt--text">
         Are you sure you want to delete this stat?
       </div>
-      <div class="deletion-prompt--stat">
+      <div class="deletion-prompt--stat" v-if="stat">
         <div class="deletion--stat-property">
           <div class="deletion--stat-title">Solve Time</div>
           <div class="deletion--stat-value">{{ stat.solve_time }}</div>

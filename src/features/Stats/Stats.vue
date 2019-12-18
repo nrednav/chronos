@@ -9,6 +9,7 @@
       :options="chartOptions"
       class="stats--chart-main"
     />
+    <div class="stats--chart-xAxesLabel">Time (days)</div>
     <StatHistory />
   </div>
 </template>
@@ -21,6 +22,7 @@ import Main from "@/features/Stats/Main.vue";
 import Chart from "@/features/Stats/Chart.vue";
 import StatHistory from "@/features/Stats/StatHistory.vue";
 
+const fileDepsHelper = require("@/utils/fileDepsHelper.js").default;
 const chartHelper = require("@/utils/chartHelper.ts").default;
 
 export default Vue.extend({
@@ -50,6 +52,10 @@ export default Vue.extend({
       this.chartData = chart.data;
       this.chartOptions = chart.options;
     }
+  },
+
+  beforeCreate() {
+    fileDepsHelper.checkExistenceFileDeps();
   },
 
   mounted() {
@@ -83,6 +89,12 @@ export default Vue.extend({
     grid-row: 2;
     width: 90%;
     margin: 0 auto 12vh auto;
+  }
+
+  &-xAxesLabel {
+    font-size: 24px;
+    padding-bottom: 12vh;
+    margin-top: -9vh;
   }
 }
 

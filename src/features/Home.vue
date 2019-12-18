@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import fileDepsHelper from "@/utils/fileDepsHelper.js";
+
 export default {
   data() {
     return {
@@ -47,6 +49,9 @@ export default {
       let body = document.querySelector("body");
       this.darkThemeEnabled = body.classList.contains("dark-theme");
     }
+  },
+  beforeCreate() {
+    fileDepsHelper.checkExistenceFileDeps();
   },
   mounted() {
     this.$nextTick(this.checkTheme);

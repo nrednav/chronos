@@ -6,6 +6,7 @@
 
 <script>
 const storage = require("./utils/appStorage.js");
+const fileDepsHelper = require("./utils/fileDepsHelper.js").default;
 
 function checkDarkThemeEnabled() {
   const settings = storage.load("config/app-settings.json");
@@ -19,9 +20,12 @@ function checkDarkThemeEnabled() {
 }
 
 export default {
+  beforeCreate() {
+    fileDepsHelper.checkExistenceFileDeps();
+  },
   mounted() {
     this.$nextTick(checkDarkThemeEnabled);
-  },
+  }
 };
 </script>
 

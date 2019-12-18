@@ -25,6 +25,7 @@ import Stats from "@/features/Main/Stats.vue";
 
 const storage = require("@/utils/appStorage.js");
 const stats = storage.load("user_data/stats.json");
+const fileDepsHelper = require("@/utils/fileDepsHelper.js").default;
 
 export default {
   stats,
@@ -62,6 +63,10 @@ export default {
     updateStats() {
       this.$refs.statsComponent.computeAvgOf5();
     }
+  },
+
+  beforeCreate() {
+    fileDepsHelper.checkExistenceFileDeps();
   },
 
   mounted() {

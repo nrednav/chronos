@@ -1,8 +1,10 @@
 "use strict";
 
-import { app, protocol, BrowserWindow, Menu, screen } from "electron";
+import { app, protocol, BrowserWindow, Menu } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 const isDevelopment = process.env.NODE_ENV !== "production";
+
+import fileDepsHelper from "@/utils/fileDepsHelper.js";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -61,9 +63,11 @@ app.on("activate", () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
+  fileDepsHelper.checkExistenceFileDeps();
   createWindow();
-  // const menu = new Menu();
-  // Menu.setApplicationMenu(menu);
+
+  const menu = new Menu();
+  Menu.setApplicationMenu(menu);
 });
 
 // Exit cleanly on request from parent process in development mode.

@@ -36,12 +36,6 @@ function getChart(theme: string): any {
             },
             gridLines: {
               color: rootDoc.getPropertyValue(`--chart-gridLines-${theme}`)
-            },
-            scaleLabel: {
-              display: true,
-              labelString: "Time (days)",
-              fontSize: 24,
-              fontColor: rootDoc.getPropertyValue(`--axes-labelColor-${theme}`)
             }
           }
         ],

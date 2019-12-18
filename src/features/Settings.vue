@@ -255,6 +255,10 @@ export default {
     }
   },
 
+  beforeCreate() {
+    fileDepsHelper.checkExistenceFileDeps();
+  },
+
   mounted() {
     this.$nextTick(() => {
       this.checkTheme();
