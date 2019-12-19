@@ -5,7 +5,7 @@ module.exports = {
       builderOptions: {
         appId: "com.nrednav.chronos",
         directories: {
-          buildResources: "build"
+          buildResources: "build/assets"
         },
         mac: {
           target: "dmg"
