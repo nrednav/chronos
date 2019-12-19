@@ -97,8 +97,4 @@ export default Vue.extend({
     margin-top: -9vh;
   }
 }
-
-body::-webkit-scrollbar {
-  display: none;
-}
 </style>

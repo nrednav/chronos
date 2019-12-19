@@ -72,19 +72,16 @@ export default Vue.extend({
       this.deleteStat(result.index);
     },
     deleteStat(index: number): void {
-      console.log(index);
-      console.log(this.history.length);
       this.history.splice(index, 1);
-      console.log(this.history.length);
 
-      let stats = storage.load("user_data/stats.json");
+      let stats = storage.load("app-stats.json");
       if (stats.history.length > 15) {
         stats.history.splice(stats.history.length - 15, 15);
         stats.history = stats.history.concat(this.history);
       } else {
         stats.history = this.history;
       }
-      storage.save("user_data/stats.json", stats);
+      storage.save("app-stats.json", stats);
 
       setTimeout(() => {
         if (stats.history.length > 15) {
@@ -96,7 +93,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    let stats = storage.load("user_data/stats.json");
+    let stats = storage.load("app-stats.json");
     setTimeout(() => {
       if (stats.history.length > 15) {
         this.history = stats.history.splice(stats.history.length - 15, 15);

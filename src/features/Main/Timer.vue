@@ -115,7 +115,7 @@ export default {
         solve_time_value: this.timer.getTimeValue(this.timer.getTime())
       });
       this.calculateBestTime(this.timer.getTime());
-      this.storage.save("user_data/stats.json", this.stats);
+      this.storage.save("app-stats.json", this.stats);
     },
 
     calculateBestTime(solveTime) {
@@ -135,7 +135,7 @@ export default {
   mounted() {
     this.timer = new Stopwatch();
 
-    let settings = this.storage.load("config/app-settings.json");
+    let settings = this.storage.load("app-settings.json");
     settings.sections["General"].options.find(option => {
       if (option.name === "warmupDuration") this.warmupDuration = option.value;
     });

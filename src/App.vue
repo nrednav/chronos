@@ -9,7 +9,7 @@ const storage = require("./utils/appStorage.js");
 const fileDepsHelper = require("./utils/fileDepsHelper.js").default;
 
 function checkDarkThemeEnabled() {
-  const settings = storage.load("config/app-settings.json");
+  const settings = storage.load("app-settings.json");
   const options = settings.sections["Appearance"].options;
   const darkThemeEnabled = options.find(option => {
     if (option.name === "darkThemeEnabled") return option.value;
@@ -47,6 +47,22 @@ body {
 
   height: 100vh;
   width: 100vw;
+
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-bg);
+  }
+
+  &::-webkit-scrollbar {
+    width: 9px;
+    background: var(--background);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--history-scrollbar-thumb);
+    border-radius: 10px;
+  }
 }
 
 #app {

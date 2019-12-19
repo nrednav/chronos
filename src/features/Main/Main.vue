@@ -24,7 +24,7 @@ import Timer from "@/features/Main/Timer.vue";
 import Stats from "@/features/Main/Stats.vue";
 
 const storage = require("@/utils/appStorage.js");
-const stats = storage.load("user_data/stats.json");
+const stats = storage.load("app-stats.json");
 const fileDepsHelper = require("@/utils/fileDepsHelper.js").default;
 
 export default {

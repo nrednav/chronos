@@ -5,7 +5,11 @@
 // -> It also includes helper functions for altering content within those files
 
 const fs = require("fs");
+const electron = require("electron");
 const storage = require("@/utils/appStorage");
+const path = require("path");
+
+const userDataPath = (electron.app || electron.remote.app).getPath("userData");
 
 function resetAllStats() {
   regenerateBaseStats();
@@ -17,7 +21,7 @@ function regenerateBaseStats() {
     best_time_value: 6000000,
     history: []
   };
-  storage.save("user_data/stats.json", stats);
+  storage.save("app-stats.json", stats);
 }
 
 function regenerateBaseSettings() {
@@ -62,14 +66,17 @@ function regenerateBaseSettings() {
     }
   ];
 
-  storage.save("config/app-settings.json", settings);
+  storage.save("app-settings.json", settings);
 }
 
 function checkExistenceFileDeps() {
-  if (!fs.existsSync("config/app-settings.json")) {
+  let settingsPath = path.join(userDataPath, "/app-settings.json");
+  let statsPath = path.join(userDataPath, "/app-stats.json");
+
+  if (!fs.existsSync(settingsPath)) {
     regenerateBaseSettings();
   }
-  if (!fs.existsSync("user_data/stats.json")) {
+  if (!fs.existsSync(statsPath)) {
     regenerateBaseStats();
   }
 }

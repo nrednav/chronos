@@ -20,7 +20,6 @@ function formatTime(value: number): string {
   if (minutes.length < 2) minutes = "0" + minutes;
   if (seconds.length < 2) seconds = "0" + seconds;
 
-
   return `${minutes}:${seconds}.${milliseconds.substr(0, 2)}`;
 }
 
@@ -58,7 +57,7 @@ function isValidTimeframe(date: string, maxDifference: number): boolean {
  */
 
 function getAvg(timeframe: string): string {
-  let stats = storage.load("user_data/stats.json");
+  let stats = storage.load("app-stats.json");
 
   if (stats.history.length === 0) {
     return "N/A";
@@ -141,12 +140,12 @@ function computeAvgOfPast5(stats: any): string {
 }
 
 function getBestTime(): string {
-  let stats = storage.load("user_data/stats.json");
+  let stats = storage.load("app-stats.json");
   return stats.best_time;
 }
 
 function getChartData(): any {
-  let stats = storage.load("user_data/stats.json");
+  let stats = storage.load("app-stats.json");
   let validStats = [];
 
   // Extract stats which fall within past month

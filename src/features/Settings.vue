@@ -104,7 +104,7 @@
 import Prompt from "@/features/Prompt.vue";
 
 const storage = require("../utils/appStorage.js");
-const appSettings = storage.load("config/app-settings.json");
+const appSettings = storage.load("app-settings.json");
 
 import fileDepsHelper from "@/utils/fileDepsHelper.js";
 
@@ -239,7 +239,7 @@ export default {
     },
 
     saveSettings() {
-      storage.save("config/app-settings.json", this.$options.settings);
+      storage.save("app-settings.json", this.$options.settings);
       this.unsavedChanges.clear();
       this.settingsChanged = false;
     },
