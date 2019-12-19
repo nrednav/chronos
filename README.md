@@ -8,7 +8,15 @@ Chronos is a simple rubik's cube timer & stat tracking application.
 * Cube scramble generator that generates scrambles according to WCA notation.
 * Dedicated stats page showcasing your average solve times over different timeframes as well as a chart displaying your progress over the past month.
 
-> Screenshots go here
+<p align="center">
+  <img src="./public/screenshots/Home.png" width="400"> <img src="./public/screenshots/Main.png" width="400">
+</p>
+<p align="center">
+  <img src="./public/screenshots/Stats Top.png" width="400"> <img src="./public/screenshots/Progress.png" width="400">
+</p>
+<p align="center">
+  <img src="./public/screenshots/History.png" width="400"> <img src="./public/screenshots/Settings.png" width="400">
+</p> 
 
 ## Installation
 
