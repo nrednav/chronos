@@ -25,14 +25,20 @@ The application was built using the Electron framework and so it can be download
 
 You can find the application binaries for each platform over [here](https://github.com/nrednav/chronos/releases).
 
-### Building from source
-To build this application from source, first make sure you have [Node.js](https://nodejs.org/en/) installed on your machine.
+> Note:- The binaries available through the link above are not signed and so they may be flagged by your system. If you'd like to build the binaries yourself instead of downloading them, please follow the instructions below for building from source.
 
-Then, clone this repository via:
+### Building from source
+To build this application from source, first make sure you have [Node.js](https://nodejs.org/en/) and [Git](https://git-scm.com/) installed on your machine.
+
+Then, using a CLI, clone the repository via:
 
 `git clone https://github.com/nrednav/chronos.git`
 
-Navigate into the cloned repository and install the required packages with:
+Navigate into the cloned directory using: 
+
+`cd chronos`
+
+Install the required packages with:
 
 `npm install`
 
@@ -42,7 +48,7 @@ To package the application for your current platform, run this in the root of th
 
 `npm run electron:build`
 
-If you'd like to use the application in development mode, run the following instead:
+For developers, you may run the app in development mode using: 
 
 `npm run electron:serve`
 
